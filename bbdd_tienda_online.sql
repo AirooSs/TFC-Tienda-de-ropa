@@ -42,31 +42,32 @@ INSERT INTO `categorias` VALUES (1,'Camisetas'),(2,'Pantalones'),(3,'Sudaderas')
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_pedido`
+-- Table structure for table `detalle_pedidos`
 --
 
-DROP TABLE IF EXISTS `detalle_pedido`;
+DROP TABLE IF EXISTS `detalle_pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_pedido` (
+CREATE TABLE `detalle_pedidos` (
   `id_pedido` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `cantidad_pedido` int(11) NOT NULL,
   `metodo_pago_pedido` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_pedido`,`id_producto`),
   KEY `id_producto` (`id_producto`),
-  CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
-  CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`)
+  CONSTRAINT `detalle_pedidos_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
+  CONSTRAINT `detalle_pedidos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_pedido`
+-- Dumping data for table `detalle_pedidos`
 --
 
-LOCK TABLES `detalle_pedido` WRITE;
-/*!40000 ALTER TABLE `detalle_pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_pedido` ENABLE KEYS */;
+LOCK TABLES `detalle_pedidos` WRITE;
+/*!40000 ALTER TABLE `detalle_pedidos` DISABLE KEYS */;
+INSERT INTO `detalle_pedidos` VALUES (1,1,2,'TARJETA'),(2,2,1,'CONTRAREEMBOLSO');
+/*!40000 ALTER TABLE `detalle_pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -81,8 +82,8 @@ CREATE TABLE `favoritos` (
   `id_producto` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`,`id_producto`),
   KEY `id_producto` (`id_producto`),
-  CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`)
+  CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -92,44 +93,46 @@ CREATE TABLE `favoritos` (
 
 LOCK TABLES `favoritos` WRITE;
 /*!40000 ALTER TABLE `favoritos` DISABLE KEYS */;
+INSERT INTO `favoritos` VALUES (1,2),(2,1);
 /*!40000 ALTER TABLE `favoritos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pedido`
+-- Table structure for table `pedidos`
 --
 
-DROP TABLE IF EXISTS `pedido`;
+DROP TABLE IF EXISTS `pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pedido` (
+CREATE TABLE `pedidos` (
   `id_pedido` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_pedido` date NOT NULL,
   `direccion_pedido` varchar(200) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
   KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pedido`
+-- Dumping data for table `pedidos`
 --
 
-LOCK TABLES `pedido` WRITE;
-/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+LOCK TABLES `pedidos` WRITE;
+/*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
+INSERT INTO `pedidos` VALUES (1,'2026-01-20','Calle Prueba 1',1),(2,'2026-01-21','Avenida Ejemplo 45',2);
+/*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `producto`
+-- Table structure for table `productos`
 --
 
-DROP TABLE IF EXISTS `producto`;
+DROP TABLE IF EXISTS `productos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `producto` (
+CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_producto` varchar(150) NOT NULL,
   `precio_producto` decimal(10,2) NOT NULL,
@@ -137,28 +140,28 @@ CREATE TABLE `producto` (
   `id_cat` int(11) NOT NULL,
   PRIMARY KEY (`id_producto`),
   KEY `id_cat` (`id_cat`),
-  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `categorias` (`id_cat`)
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `categorias` (`id_cat`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `producto`
+-- Dumping data for table `productos`
 --
 
-LOCK TABLES `producto` WRITE;
-/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'Camiseta básica blanca',12.99,50,1),(2,'Pantalón vaquero azul',39.99,30,2);
-/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,'Camiseta básica blanca',12.99,50,1),(2,'Pantalón vaquero azul',39.99,30,2);
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `usuario`
+-- Table structure for table `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
+CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_usuario` varchar(100) NOT NULL,
   `email_usuario` varchar(150) NOT NULL,
@@ -169,13 +172,13 @@ CREATE TABLE `usuario` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuario`
+-- Dumping data for table `usuarios`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Usuario Prueba','prueba@email.com','Calle Prueba 1'),(2,'Usuario Demo','demo@email.com','Avenida Ejemplo 45');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'Usuario Prueba','prueba@email.com','Calle Prueba 1'),(2,'Usuario Demo','demo@email.com','Avenida Ejemplo 45');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -187,4 +190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-27 13:50:40
+-- Dump completed on 2026-01-28 12:37:50
