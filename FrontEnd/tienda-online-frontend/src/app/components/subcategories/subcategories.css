@@ -1,0 +1,73 @@
+
+.barra-subcategorias {
+  background-color: transparent; /* fondo transparente!! */
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e9ecef; /* line super sutil justo debajo */
+}
+
+.contenedor-subcategorias {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 2rem;
+  justify-content: center; 
+  flex-wrap: wrap; /* Para que se ajuste en móvil */
+}
+
+/* Enlaces de subcategoría serán igual 
+que en Home, el mismo estilo */
+.enlace-subcategoria {
+  padding: 10px 24px;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  font-weight: 400;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  white-space: nowrap; /* Evitamos que se rompan en varias líneas */
+}
+
+.enlace-subcategoria:hover {
+  border-color: #adb5bd;
+  color: #343a40;
+  background-color: #f8f9fa;
+}
+
+
+.enlace-subcategoria.activa {
+  color: #343a40;
+  font-weight: 500;
+  border-color: #adb5bd;
+  background-color: #f8f9fa;
+}
+
+/* Parte responsive  */
+@media (max-width: 768px) {
+  .contenedor-subcategorias {
+    gap: 1rem;
+    padding: 0 15px;
+  }
+  
+  .enlace-subcategoria {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .barra-subcategorias {
+    padding: 1rem 0;
+  }
+  
+  .contenedor-subcategorias {
+    gap: 0.75rem;
+  }
+  
+  .enlace-subcategoria {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}

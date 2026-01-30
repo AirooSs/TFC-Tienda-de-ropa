@@ -38,16 +38,18 @@ nav {
 .logo a {
   font-size: 2.6rem;
   font-weight: 700;
-  color: #343a40;
+  color: #555c62;
   text-decoration: none;
   letter-spacing: 4px;
   line-height: 1; /* Sin espacio extra con el sublogo, más junto! */
   display: block;
   transform: translateY(5px); /* Para bajar el logo un poquito, 5px*/
+
+  transition: all 0.5s ease;
 }
 
 .logo a:hover {
-  color: #7c7c7c;
+  color: #808080;
 }
 
 /* Sublogo - Justo debajo del logo */
@@ -59,7 +61,7 @@ nav {
 .sublogo span {
   font-size: 0.75rem;
   font-weight: 300;
-  color: #6c757d;
+  color: #575c61;
   letter-spacing: 1.2px;
   /* text-transform: lowercase; */ /* QUITADO para mayúscula inicial */
   display: block;
@@ -74,7 +76,7 @@ nav {
 }
 
 .nav-links a {
-  color: #6c757d;
+  color: #65696b;
   text-decoration: none;
   font-weight: 400;
   font-size: 1rem;
@@ -82,10 +84,12 @@ nav {
   transition: color 0.2s ease;
   position: relative;
   line-height: 1;
+  transition: all 0.35s ease-in-out;
 }
 
 .nav-links a:hover {
-  color: #495057;
+  /* font-size: 1.07rem; */
+  color: #2f3337;
 }
 
 .nav-links a.active {
@@ -120,13 +124,31 @@ nav {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: all 0.2s ease;
+  
 }
 
 .nav-icons a:hover {
   color: #495057;
-  background-color: rgba(108, 117, 125, 0.05);
+  
 }
+
+.nav-icon {
+  height: 1.7rem;
+  opacity: 0.5; 
+  transition: all 0.35s ease-in-out;
+}
+
+
+.nav-icons a:hover .nav-icon {
+  height: 2rem;
+  opacity: 0.6; 
+}
+
+.nav-icons a.active .nav-icon {
+  height: 1.7rem;
+  opacity: 0.6; 
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

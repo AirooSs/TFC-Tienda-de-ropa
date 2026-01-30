@@ -8,7 +8,8 @@ export const routes: Routes = [
     { path: 'perfil', loadComponent: () => import('./components/profile/profile').then(m => m.ProfileComponent)},
     { path: 'carrito', loadComponent: () => import('./components/cart/cart').then(m => m.CartComponent)},
     { path: 'busqueda', loadComponent: () => import('./components/search/search').then(m => m.SearchComponent)},
-    { path: 'categoria/:tipo', loadComponent: () => import('./components/products/products').then(m => m.ProductsComponent)},
+    { path: 'categoria/:tipo', loadComponent: () => import('./components/category/category').then(m => m.CategoryComponent)},
     { path: 'producto/:id', loadComponent: () => import('./components/product-detail/product-detail').then(m => m.ProductDetailComponent)},
+    { path: 'categoria/:tipo/:subcategoria', loadComponent: () => import('./components/products/products').then(m => m.ProductsComponent)},
     { path: '**', redirectTo: '/inicio' }
 ];
