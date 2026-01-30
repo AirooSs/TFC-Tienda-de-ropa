@@ -1,0 +1,29 @@
+
+.pagina-productos {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 3rem;
+}
+
+.titulo-productos {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #343a40;
+  margin: 2rem 0 1.5rem;
+  text-align: center;
+}
+
+.grid-productos {
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pagina-productos {
+    padding: 0 15px 2rem;
+  }
+  
+  .titulo-productos {
+    font-size: 1.6rem;
+  }
+}

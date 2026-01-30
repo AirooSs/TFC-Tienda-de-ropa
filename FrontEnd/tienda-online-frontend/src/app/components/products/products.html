@@ -1,0 +1,16 @@
+<div class="pagina-productos">
+  <!-- Barra de subcategorías (igual que en CategoryComponent) -->
+  <app-subcategories [categoria]="categoria"></app-subcategories>
+  
+  <!-- Título con categoría y subcategoría -->
+  <h1 class="titulo-productos">
+    {{ categoria | titlecase }} - {{ subcategoria | titlecase }}
+  </h1>
+  
+  <!-- Grid de productos (vacío por ahora) -->
+  <div class="grid-productos">
+    <p style="text-align: center; color: #6c757d; padding: 3rem;">
+        Aquí metemos elgrid de productos de {{ subcategoria }} para {{ categoria }}.
+    </p>
+  </div>
+</div>

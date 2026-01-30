@@ -1,0 +1,96 @@
+/* estilo global  */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tipografía Helvetica en todo ... de momento!!! */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300; /* Light por defecto */
+  line-height: 1.6;
+  color: #495057; /* Gris medio para texto */
+  background-color: #fefefe; 
+  min-height: 100vh;
+}
+
+/* Contenedor principal - Centrado y con padding */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 20px;
+  min-height: calc(100vh - 160px);
+}
+
+/* Encabezados - Gris oscuro, peso ligero */
+h1, h2, h3, h4, h5, h6 {
+  color: #343a40; /* Gris oscuro */
+  font-weight: 300; /* Light */
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Enlaces - Sutil */
+a {
+  color: #6c757d; /* Gris medio */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #495057; /* Gris más oscuro */
+}
+
+/* Separadores sutiles */
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #e9ecef; /* Gris muy claro */
+  margin: 2rem 0;
+}
+
+/* Espaciado minimalista */
+section {
+  margin-bottom: 3rem;
+}
+
+/* Clase utilitaria para texto claro */
+.text-muted {
+  color: #adb5bd; /* Gris claro */
+}
+
+/* Footer minimalista */
+footer {
+  background-color: #f8f9fa; /* Mismo que header */
+  border-top: 1px solid #e9ecef;
+  padding: 2rem 20px;
+  text-align: center;
+  color: #6c757d; /* Gris medio */
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+footer a {
+  color: #6c757d;
+  margin: 0 0.5rem;
+}
+
+footer a:hover {
+  color: #495057;
+}

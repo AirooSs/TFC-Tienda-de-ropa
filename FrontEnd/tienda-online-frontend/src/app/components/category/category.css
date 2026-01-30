@@ -1,0 +1,31 @@
+
+.pagina-categoria {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 3rem;
+}
+
+.titulo-categoria {
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: #343a40;
+  margin: 2rem 0 1.5rem;
+  text-align: center;
+}
+
+/* SECCIONES DE CONTENIDO */
+.seccion-contenido {
+  margin: 3rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pagina-categoria {
+    padding: 0 15px 2rem;
+  }
+  
+  .titulo-categoria {
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+  }
+}

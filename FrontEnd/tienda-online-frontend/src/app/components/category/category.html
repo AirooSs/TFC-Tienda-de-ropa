@@ -1,0 +1,15 @@
+<div class="pagina-categoria">
+  <!-- barra del menú subcategoría -->
+  <app-subcategories [categoria]="categoria"></app-subcategories>
+  
+  <!-- título de categoira -->
+  <h1 class="titulo-categoria">{{ categoria | titlecase }}</h1>
+  
+  <!-- CONTENIDOS ESPECÍFICOS DE CATEGORÍAAS -->
+  <div class="seccion-contenido">
+    <p style="text-align: center; color: #6c757d;">
+      Contenido específico para {{ categoria }}.
+      <br>Aquí irán productos destacados, novedades, etc.
+    </p>
+  </div>
+</div>
