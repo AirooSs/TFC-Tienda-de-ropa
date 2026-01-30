@@ -28,7 +28,7 @@ CREATE TABLE `categorias` (
   `id_cat` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_cat` varchar(100) NOT NULL,
   PRIMARY KEY (`id_cat`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Camisetas'),(2,'Pantalones'),(3,'Sudaderas'),(4,'Faldas');
+INSERT INTO `categorias` VALUES (1,'Camisetas'),(2,'Pantalones'),(3,'Sudaderas'),(4,'Faldas'),(5,'Zapatos'),(6,'Blusas'),(7,'Bolsos');
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,6 +138,7 @@ CREATE TABLE `productos` (
   `precio_producto` decimal(10,2) NOT NULL,
   `stock_producto` int(11) NOT NULL,
   `id_cat` int(11) NOT NULL,
+  `id_publico` int(11) NOT NULL,
   PRIMARY KEY (`id_producto`),
   KEY `id_cat` (`id_cat`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `categorias` (`id_cat`)
@@ -150,8 +151,32 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,'Camiseta básica blanca',12.99,50,1),(2,'Pantalón vaquero azul',39.99,30,2);
+INSERT INTO `productos` VALUES (1,'Camiseta básica blanca',12.99,50,1,1),(2,'Pantalón vaquero azul',39.99,30,2,2);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `publico`
+--
+
+DROP TABLE IF EXISTS `publico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `publico` (
+  `id_publico` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_publico` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_publico`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `publico`
+--
+
+LOCK TABLES `publico` WRITE;
+/*!40000 ALTER TABLE `publico` DISABLE KEYS */;
+INSERT INTO `publico` VALUES (1,'Hombre'),(2,'Mujer'),(3,'Junior');
+/*!40000 ALTER TABLE `publico` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -190,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-28 12:37:50
+-- Dump completed on 2026-01-30 14:00:12
