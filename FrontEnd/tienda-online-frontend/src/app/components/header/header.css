@@ -37,10 +37,10 @@ nav {
 
 .logo a {
   font-size: 2.6rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #555c62;
   text-decoration: none;
-  letter-spacing: 4px;
+  letter-spacing: -1px;
   line-height: 1; /* Sin espacio extra con el sublogo, más junto! */
   display: block;
   transform: translateY(5px); /* Para bajar el logo un poquito, 5px*/

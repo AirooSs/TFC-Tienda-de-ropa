@@ -1,0 +1,18 @@
+/*footer*/
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-copyright {
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  font-size: 0.9rem;
+}
+
+.footer-link-disabled {
+  color: #adb5bd;
+}
