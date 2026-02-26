@@ -11,12 +11,12 @@ public interface CategoriaService {
 	
 	List<Categoria> findAll();
 
-	Categoria findById(Long id);
+	Categoria findById(Integer id);
 
 	Categoria insertOne(Categoria categoria);
 
 	Categoria updateOne(Categoria categoria);
 
-	int deleteOne(Long id);
+	int deleteOne(Integer id);
 	
 }

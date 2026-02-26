@@ -21,7 +21,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
-	public Pedido findById(Long id) {
+	public Pedido findById(Integer id) {
 
 		return pedidoRepository.findById(id).orElse(null);
 	}
@@ -41,7 +41,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
-	public int deleteOne(Long id) {
+	public int deleteOne(Integer id) {
 		if (pedidoRepository.existsById(id)) {
 			pedidoRepository.deleteById(id);
 			return 1;

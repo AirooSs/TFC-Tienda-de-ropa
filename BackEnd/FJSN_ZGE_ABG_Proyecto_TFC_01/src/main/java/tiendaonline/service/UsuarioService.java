@@ -10,12 +10,12 @@ public interface UsuarioService {
 	
 	List<Usuario> findAll();
 
-	Usuario findById(Long id);
+	Usuario findById(Integer id);
 
 	Usuario insertOne(Usuario usuario);
 
 	Usuario updateOne(Usuario usuario);
 
-	int deleteOne(Long id);
+	int deleteOne(Integer id);
 
 }

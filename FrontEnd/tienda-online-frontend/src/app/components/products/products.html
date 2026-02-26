@@ -9,8 +9,37 @@
   
   <!-- Grid de productos (vacío por ahora) -->
   <div class="grid-productos">
-    <p style="text-align: center; color: #6c757d; padding: 3rem;">
-        Aquí metemos el grid de productos de {{ subcategoria }} para {{ categoria }}.
-    </p>
+
+    @if (products$ | async; as products) {
+
+      @for (p of products; track p.idProducto) {
+        <article class="producto-card">
+          <div class="producto-img">
+            <span class="producto-badge">{{ p.categoria?.nombreCategoria ?? 'Producto' }}</span>
+          </div>
+
+          <div class="producto-info">
+            <h3 class="producto-nombre">{{ p.nombreProducto }}</h3>
+
+            <div class="producto-meta">
+              <span class="producto-precio">{{ p.precioProducto }} €</span>
+              <span class="producto-stock" [class.sin-stock]="p.StockProducto === 0">
+                @if (p.StockProducto === 0) { Sin stock } @else { Stock: {{ p.StockProducto }} }
+              </span>
+            </div>
+
+            <a class="producto-btn" [routerLink]="['/producto', p.idProducto]">
+              Ver detalle
+            </a>
+          </div>
+        </article>
+      }
+
+    } @else {
+      <p style="text-align: center; color: #6c757d; padding: 3rem;">
+        Cargando productos...
+      </p>
+    }
+
   </div>
 </div>

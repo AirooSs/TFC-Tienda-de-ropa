@@ -27,7 +27,7 @@ public class UsuarioRestController {
 	}
 
 	@GetMapping("/{id}")
-	ResponseEntity<?> uno(@PathVariable Long id) {
+	ResponseEntity<?> uno(@PathVariable Integer id) {
 		return ResponseEntity.ok(usuarioService.findById(id));
 	}
 
@@ -41,8 +41,8 @@ public class UsuarioRestController {
 		return ResponseEntity.ok(usuarioService.updateOne(usuario));
 	}
 
-	@DeleteMapping("{id}")
-	ResponseEntity<?> deleteOne(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		usuarioService.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SubcategoriesComponent } from '../subcategories/subcategories'; 
+import { ProductsService, Product } from '../../services/products.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, SubcategoriesComponent], //importamos Subcategrías
+  imports: [CommonModule, SubcategoriesComponent,RouterLink], //importamos Subcategrías
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
@@ -16,13 +18,21 @@ export class ProductsComponent implements OnInit {
   categoria: string = '';  //son strings vacíos (mostrarán hombre, mujer o junior)
   subcategoria: string = '';  //string vacío que mostrará la subcategoria seleccionada.
 
+  products$!: Observable<Product[]>; // Productos que vienen del backend
+
   //proporciona info sobre la ruta actual
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productsService: ProductsService  // Inyectamos el service
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {  //extraemos el parámetro :tipo
+    this.route.params.subscribe(params => {  // Extraemos el parámetro :tipo
       this.categoria = params['tipo'];
-      this.subcategoria = params['subcategoria']; //extraemos el parámetro subcategoria
+      this.subcategoria = params['subcategoria']; // Extraemos el parámetro subcategoria
+
+      // Llamamos al backend
+      this.products$ = this.productsService.listByCategoria(this.subcategoria);
     });
   }
 }

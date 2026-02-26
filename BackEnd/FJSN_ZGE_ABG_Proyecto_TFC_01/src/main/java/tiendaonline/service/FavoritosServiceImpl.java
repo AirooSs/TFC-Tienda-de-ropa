@@ -21,7 +21,7 @@ public class FavoritosServiceImpl implements FavoritosService {
 	}
 
 	@Override
-	public Favoritos findById(Long id) {
+	public Favoritos findById(Integer id) {
 
 		return favoritosRepository.findById(id).orElse(null);
 	}
@@ -41,7 +41,7 @@ public class FavoritosServiceImpl implements FavoritosService {
 	}
 
 	@Override
-	public int deleteOne(Long id) {
+	public int deleteOne(Integer id) {
 		if (favoritosRepository.existsById(id)) {
 			favoritosRepository.deleteById(id);
 			return 1;

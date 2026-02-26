@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tiendaonline.entities.Producto;
 import tiendaonline.service.ProductoService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
@@ -27,7 +28,7 @@ public class ProductoRestController {
 	}
 
 	@GetMapping("/{id}")
-	ResponseEntity<?> uno(@PathVariable Long id) {
+	ResponseEntity<?> uno(@PathVariable Integer id) {
 		return ResponseEntity.ok(productoService.findById(id));
 	}
 
@@ -41,10 +42,16 @@ public class ProductoRestController {
 		return ResponseEntity.ok(productoService.updateOne(producto));
 	}
 
-	@DeleteMapping("{id}")
-	ResponseEntity<?> deleteOne(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		productoService.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}
+
+	//Metodo propio
+	@GetMapping("/categoria/{nombreCategoria}")
+	public List<Producto> productosPorCategoria(@PathVariable String nombreCategoria) {
+    	return productoService.findByCategoriaNombre(nombreCategoria);
+}
 
 }

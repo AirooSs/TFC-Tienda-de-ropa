@@ -9,11 +9,11 @@ public interface PedidoService {
 	
 	List<Pedido> findAll();
 
-	Pedido findById(Long id);
+	Pedido findById(Integer id);
 
 	Pedido insertOne(Pedido pedido);
 
 	Pedido updateOne(Pedido pedido);
 
-	int deleteOne(Long id);
+	int deleteOne(Integer id);
 }
