@@ -27,7 +27,7 @@ public class PedidoRestController {
 	}
 
 	@GetMapping("/{id}")
-	ResponseEntity<?> uno(@PathVariable Long id) {
+	ResponseEntity<?> uno(@PathVariable Integer id) {
 		return ResponseEntity.ok(pedidoService.findById(id));
 	}
 
@@ -41,8 +41,8 @@ public class PedidoRestController {
 		return ResponseEntity.ok(pedidoService.updateOne(pedido));
 	}
 
-	@DeleteMapping("{id}")
-	ResponseEntity<?> deleteOne(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		pedidoService.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}

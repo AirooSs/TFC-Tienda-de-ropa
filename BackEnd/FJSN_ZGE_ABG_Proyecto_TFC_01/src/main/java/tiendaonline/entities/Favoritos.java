@@ -31,7 +31,7 @@ public class Favoritos implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_favorito;
+    private Integer id_favorito;
 	
 	@JoinColumn(name = "id_producto")
 	@ManyToOne

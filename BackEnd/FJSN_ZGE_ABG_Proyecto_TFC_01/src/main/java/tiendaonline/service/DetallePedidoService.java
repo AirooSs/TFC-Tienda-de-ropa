@@ -12,11 +12,11 @@ public interface DetallePedidoService {
 	
 		List<DetallePedido> findAll();
 
-		DetallePedido findById(Long id);
+		DetallePedido findById(Integer id);
 
 		DetallePedido insertOne(DetallePedido detalle);
 
 		DetallePedido updateOne(DetallePedido detalle);
 
-		int deleteOne(Long id);
+		int deleteOne(Integer id);
 }

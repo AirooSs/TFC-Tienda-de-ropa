@@ -27,7 +27,7 @@ public class FavoritosRestController {
 	}
 
 	@GetMapping("/{id}")
-	ResponseEntity<?> uno(@PathVariable Long id) {
+	ResponseEntity<?> uno(@PathVariable Integer id) {
 		return ResponseEntity.ok(favoritosService.findById(id));
 	}
 
@@ -41,8 +41,8 @@ public class FavoritosRestController {
 		return ResponseEntity.ok(favoritosService.updateOne(favoritos));
 	}
 
-	@DeleteMapping("{id}")
-	ResponseEntity<?> deleteOne(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		favoritosService.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}

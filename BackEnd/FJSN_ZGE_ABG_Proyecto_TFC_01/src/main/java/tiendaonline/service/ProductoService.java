@@ -9,11 +9,14 @@ public interface ProductoService {
 
 	List<Producto> findAll();
 
-	Producto findById(Long id);
+	Producto findById(Integer id);
 
 	Producto insertOne(Producto producto);
 
 	Producto updateOne(Producto producto);
 
-	int deleteOne(Long id);
+	int deleteOne(Integer id);
+
+	//Filtro productos por nombre de categoria
+	List<Producto> findByCategoriaNombre(String nombreCategoria);
 }

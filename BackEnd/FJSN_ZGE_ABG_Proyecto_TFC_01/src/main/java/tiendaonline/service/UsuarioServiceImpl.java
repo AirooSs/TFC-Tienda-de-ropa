@@ -20,7 +20,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario findById(Long id) {
+	public Usuario findById(Integer id) {
 
 		return usuarioRepository.findById(id).orElse(null);
 	}
@@ -40,7 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public int deleteOne(Long id) {
+	public int deleteOne(Integer id) {
 		if (usuarioRepository.existsById(id)) {
 			usuarioRepository.deleteById(id);
 			return 1;

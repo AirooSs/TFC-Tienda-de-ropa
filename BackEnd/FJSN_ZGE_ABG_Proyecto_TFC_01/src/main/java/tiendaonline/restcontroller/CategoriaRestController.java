@@ -27,7 +27,7 @@ public class CategoriaRestController {
 	}
 
 	@GetMapping("/{id}")
-	ResponseEntity<?> uno(@PathVariable Long id) {
+	ResponseEntity<?> uno(@PathVariable Integer id) {
 		return ResponseEntity.ok(categoriaService.findById(id));
 	}
 
@@ -41,8 +41,8 @@ public class CategoriaRestController {
 		return ResponseEntity.ok(categoriaService.updateOne(categoria));
 	}
 
-	@DeleteMapping("{id}")
-	ResponseEntity<?> deleteOne(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		categoriaService.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}

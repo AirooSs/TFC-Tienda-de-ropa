@@ -21,7 +21,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public Categoria findById(Long id) {
+	public Categoria findById(Integer id) {
 
 		return categoriaRepository.findById(id).orElse(null);
 	}
@@ -41,7 +41,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public int deleteOne(Long id) {
+	public int deleteOne(Integer id) {
 		if (categoriaRepository.existsById(id)) {
 			categoriaRepository.deleteById(id);
 			return 1;

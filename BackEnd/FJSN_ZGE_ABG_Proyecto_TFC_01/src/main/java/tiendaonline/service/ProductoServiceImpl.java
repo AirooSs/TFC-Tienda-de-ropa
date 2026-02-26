@@ -21,7 +21,7 @@ public class ProductoServiceImpl implements ProductoService {
 	}
 
 	@Override
-	public Producto findById(Long id) {
+	public Producto findById(Integer id) {
 
 		return productoRepository.findById(id).orElse(null);
 	}
@@ -41,12 +41,16 @@ public class ProductoServiceImpl implements ProductoService {
 	}
 
 	@Override
-	public int deleteOne(Long id) {
+	public int deleteOne(Integer id) {
 		if (productoRepository.existsById(id)) {
 			productoRepository.deleteById(id);
 			return 1;
 		}
 		return 0;
 	}
+	@Override
+	public List<Producto> findByCategoriaNombre(String nombreCategoria) {
+    	return productoRepository.findByCategoria_NombreCategoriaIgnoreCase(nombreCategoria);
+}
 
 }

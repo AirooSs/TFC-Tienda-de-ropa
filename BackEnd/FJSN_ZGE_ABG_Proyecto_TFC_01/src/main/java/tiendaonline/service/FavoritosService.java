@@ -9,11 +9,11 @@ public interface FavoritosService {
 
 	List<Favoritos> findAll();
 
-	Favoritos findById(Long id);
+	Favoritos findById(Integer id);
 
 	Favoritos insertOne(Favoritos favoritos);
 
 	Favoritos updateOne(Favoritos favoritos);
 
-	int deleteOne(Long id);
+	int deleteOne(Integer id);
 }

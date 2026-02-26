@@ -21,7 +21,7 @@ public class DetallePedidoServiceImpl implements DetallePedidoService {
 	}
 
 	@Override
-	public DetallePedido findById(Long id) {
+	public DetallePedido findById(Integer id) {
 
 		return detalle_pedidoRepository.findById(id).orElse(null);
 	}
@@ -41,7 +41,7 @@ public class DetallePedidoServiceImpl implements DetallePedidoService {
 	}
 
 	@Override
-	public int deleteOne(Long id) {
+	public int deleteOne(Integer id) {
 		if (detalle_pedidoRepository.existsById(id)) {
 			detalle_pedidoRepository.deleteById(id);
 			return 1;
