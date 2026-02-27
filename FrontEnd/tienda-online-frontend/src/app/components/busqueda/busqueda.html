@@ -1,0 +1,19 @@
+<h2>Resultados para "{{ nombre() }}"</h2>
+
+@if (loading()) {
+  <p>Cargando...</p>
+}
+
+@if (!loading() && results().length === 0) {
+  <p>No se encontraron productos.</p>
+}
+
+<div class="grid">
+  @for (p of results(); track p.idProducto) {
+    <div class="card">
+      <h3>{{ p.nombreProducto }}</h3>
+      <p>{{ p.precioProducto }} €</p>
+      <p>Stock: {{ p.StockProducto }}</p>
+    </div>
+  }
+</div>

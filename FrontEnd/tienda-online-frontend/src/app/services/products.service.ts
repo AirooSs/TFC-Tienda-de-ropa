@@ -35,4 +35,9 @@ export class ProductsService {
       `${environment.apiUrl}/productos/categoria/${encodeURIComponent(nombreCategoria)}`
     );
   }
+  searchByNombre(nombre: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}buscar`, {
+      params: { nombre }
+    });
+  }
 }

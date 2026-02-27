@@ -1,75 +1,25 @@
-/* Contenedor del componente search dentro del header */
-.search {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
+.search-container {
+  width: 300px; /* ajusta según tu navbar */
 }
 
-/* Botón de la lupa */
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: transparent;
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 20px;
   border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-/* Hover igual que los enlaces del header */
-.icon-btn:hover .nav-icon {
-  height: 2rem;
-  opacity: 0.6;
-}
-
-/* Caja del input desplegable */
-.search-form {
-  position: absolute;
-  top: 130%;
-  right: 0;
-
-  background: white;
-  padding: 8px;
-  border-radius: 10px;
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
-}
-
-/* Input de búsqueda */
-.search-form input {
-  width: 220px;
-  padding: 8px 10px;
-
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: #f1f3f5; /* gris claro elegante */
+  font-size: 14px;
   outline: none;
-
-  font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
-/* Transición suave al aparecer */
-.search-form {
-  animation: searchFadeIn 0.15s ease-out;
+/* Cuando haces focus */
+.search-input:focus {
+  background-color: #e9ecef;
+  box-shadow: 0 0 0 2px #d0d7de;
 }
 
-@keyframes searchFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Tamaño igual que el resto de iconos */
-.icon-btn .nav-icon {
-  height: 1.7rem;
-  opacity: 0.5;
+/* Placeholder más suave */
+.search-input::placeholder {
+  color: #8a8a8a;
 }
