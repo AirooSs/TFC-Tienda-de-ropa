@@ -18,7 +18,7 @@ export interface Product {
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  private baseUrl = `${environment.apiUrl}/productos/`; // tu backend usa barra final
+  private baseUrl = `${environment.apiUrl}/productos/`;
 
   constructor(private http: HttpClient) { }
 
