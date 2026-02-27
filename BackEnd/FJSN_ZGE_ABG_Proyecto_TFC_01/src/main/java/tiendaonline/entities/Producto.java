@@ -40,13 +40,20 @@ public class Producto implements Serializable {
 	private String nombreProducto;
 
 	@Column(name = "precio_producto")
-	private double precioProducto;
+	private Double precioProducto;
 
 	@Column(name = "stock_producto")
-	private int stockProducto;
+	private Integer stockProducto;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cat")
 	private Categoria categoria;
+	
+	@Column(name = "imagen_url")
+	private String imagenUrl;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_publico", nullable = false)
+	private Publico publico;
 
 }

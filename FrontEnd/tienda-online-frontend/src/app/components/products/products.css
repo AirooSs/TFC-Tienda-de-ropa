@@ -15,6 +15,9 @@
 
 .grid-productos {
   margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* metemos 4 columnas como mucho */
+  gap: 2rem;
 }
 
 /* Responsive */
@@ -26,4 +29,12 @@
   .titulo-productos {
     font-size: 1.6rem;
   }
+}
+
+/*Imágenes*/
+.producto-imagen {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
 }

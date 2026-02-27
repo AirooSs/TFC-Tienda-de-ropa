@@ -15,7 +15,14 @@
       @for (p of products; track p.idProducto) {
         <article class="producto-card">
           <div class="producto-img">
-            <span class="producto-badge">{{ p.categoria?.nombreCategoria ?? 'Producto' }}</span>
+            <img 
+            [src]="p.imagenUrl || '/img/placeholder.png'" #ponemos una imagen por defecto para el null
+            [alt]="p.nombreProducto"
+            class="producto-imagen"
+            >
+            <span class="producto-badge">
+              {{ p.categoria?.nombreCategoria ?? 'Producto' }}
+            </span>
           </div>
 
           <div class="producto-info">

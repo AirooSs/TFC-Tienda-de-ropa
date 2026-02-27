@@ -14,6 +14,7 @@ export interface Product {
   precioProducto: number;
   StockProducto: number;
   categoria?: Category;
+  imagenUrl?: string;   //ponemos imagen opcional, para que una ausencia no rompa la app
 }
 
 @Injectable({ providedIn: 'root' })
