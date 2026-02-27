@@ -31,8 +31,8 @@ export class ProductsComponent implements OnInit {
       this.categoria = params['tipo'];
       this.subcategoria = params['subcategoria']; // Extraemos el parámetro subcategoria
 
-      // Llamamos al backend
-      this.products$ = this.productsService.listByCategoria(this.subcategoria);
+      // Llamamos al backend ----> (método que filtra por categoría + público)
+      this.products$ = this.productsService.listByCategoriaYPublico(this.subcategoria, this.categoria);
     });
   }
 }

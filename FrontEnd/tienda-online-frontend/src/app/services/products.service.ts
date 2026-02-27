@@ -41,4 +41,13 @@ export class ProductsService {
       params: { nombre }
     });
   }
+
+  //El método clave: Categoria + publico
+  listByCategoriaYPublico(categoria: string, publico: string) {
+  return this.http.get<Product[]>(
+    `${environment.apiUrl}/productos/categoria/${encodeURIComponent(categoria)}/publico/${encodeURIComponent(publico)}`
+  );
+}
+
+
 }

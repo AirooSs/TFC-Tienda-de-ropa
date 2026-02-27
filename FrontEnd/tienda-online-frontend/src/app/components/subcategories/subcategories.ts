@@ -15,9 +15,9 @@ export class SubcategoriesComponent {
   
   // cargamos algunas subcategorias
   subcategoriasData: any = {
-    'hombre': ['Camisetas', 'Pantalones', 'Sudaderas', 'Zapatos'],
-    'mujer': ['Vestidos', 'Blusas', 'Faldas', 'Zapatos', 'Bolsos'],
-    'junior': ['Camisetas', 'Pantalones', 'Sudaderas', 'Zapatos']
+    'hombre': ['Camisetas', 'Pantalones', 'Sudaderas', 'Camisas'],
+    'mujer': ['Vestidos', 'Suéter', 'Faldas', 'Camisas', 'Pantalones'],
+    'junior': ['Chándal', 'Sudaderas', 'Zapatos']
   };
   
   get subcategorias(): string[] {
