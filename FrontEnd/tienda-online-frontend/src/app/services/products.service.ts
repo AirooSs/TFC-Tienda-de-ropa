@@ -18,7 +18,7 @@ export interface Product {
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  private baseUrl = `${environment.apiUrl}/productos/`; // tu backend usa barra final
+  private baseUrl = `${environment.apiUrl}/productos/`;
 
   constructor(private http: HttpClient) { }
 
@@ -34,5 +34,10 @@ export class ProductsService {
     return this.http.get<Product[]>(
       `${environment.apiUrl}/productos/categoria/${encodeURIComponent(nombreCategoria)}`
     );
+  }
+  searchByNombre(nombre: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}buscar`, {
+      params: { nombre }
+    });
   }
 }

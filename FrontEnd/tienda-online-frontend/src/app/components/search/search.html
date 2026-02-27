@@ -1,11 +1,13 @@
-<div class="search">
-    <button type="button" class="icon-btn" (click)="toggle()" title="Búsqueda">
-        <img src="/img/magnifying-glass-solid-full.svg" alt="Búsqueda" class="nav-icon" />
-    </button>
+<div class="search-container">
+  <form (ngSubmit)="submit()">
 
-    @if (open) {
-    <form (ngSubmit)="submit()" class="search-form">
-        <input type="text" placeholder="Buscar producto..." [(ngModel)]="query" name="q" autofocus />
-    </form>
-    }
+    <input
+      type="text"
+      [(ngModel)]="query"
+      name="q"
+      placeholder="Buscar productos..."
+      class="search-input"
+    />
+
+  </form>
 </div>
