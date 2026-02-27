@@ -23,4 +23,11 @@ public interface ProductoService {
 	//Busco producto por su nombre
 
 	List<Producto> findByNombre(String nombreProducto);
+	
+	//filtro por categoria y público:
+	List<Producto> findByCategoriaYPublico(
+			String nombreCategoria,
+			String nombrePublico
+			);
+	
 }

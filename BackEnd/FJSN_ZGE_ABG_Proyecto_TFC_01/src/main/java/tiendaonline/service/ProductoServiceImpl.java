@@ -7,12 +7,19 @@ import org.springframework.stereotype.Service;
 
 import tiendaonline.entities.Producto;
 import tiendaonline.repository.ProductoRepository;
+import tiendaonline.repository.UsuarioRepository;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
+    private final UsuarioRepository usuarioRepository;
+
 	@Autowired
 	private ProductoRepository productoRepository;
+
+    ProductoServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
 	@Override
 	public List<Producto> findAll() {
@@ -63,6 +70,21 @@ public class ProductoServiceImpl implements ProductoService {
         }
         return productoRepository.findByNombreProductoContainingIgnoreCase(nombreProducto.trim());
     }
+
+	
+	//Filtro necesario de categoria + publico
+	
+	@Override
+	public List<Producto> findByCategoriaYPublico(String nombreCategoria, String nombrePublico) {
+		if (nombreCategoria == null || nombrePublico == null) {
+			return List.of();
+		}
+		
+		return productoRepository.findByCategoria_NombreCategoriaIgnoreCaseAndPublico_NombrePublicoIgnoreCase(
+				nombreCategoria.trim(), 
+				nombrePublico.trim()
+				);
+	}
 
 
 }

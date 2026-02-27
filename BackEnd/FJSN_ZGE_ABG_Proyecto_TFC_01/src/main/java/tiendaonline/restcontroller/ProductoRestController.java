@@ -63,5 +63,19 @@ public class ProductoRestController {
                 productoService.findByNombre(nombre)
         );
     }
+	
+	
+	//método propio para la búsqueda conjunta del tipo de prenda + tipo de público
+	@GetMapping("/categoria/{nombreCategoria}/publico/{nombrePublico}")
+	public List<Producto> productosPorCategoriaYPublico(
+			@PathVariable String nombreCategoria,
+			@PathVariable String nombrePublico){
+		return productoService.findByCategoriaYPublico(
+				nombreCategoria, 
+				nombrePublico
+				);
+	
+	}
+	
 
 }
