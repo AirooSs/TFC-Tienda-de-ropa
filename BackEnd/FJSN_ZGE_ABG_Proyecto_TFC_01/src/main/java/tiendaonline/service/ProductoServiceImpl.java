@@ -48,9 +48,21 @@ public class ProductoServiceImpl implements ProductoService {
 		}
 		return 0;
 	}
+
+	//Busca productos por nombre de la categoria
 	@Override
 	public List<Producto> findByCategoriaNombre(String nombreCategoria) {
     	return productoRepository.findByCategoria_NombreCategoriaIgnoreCase(nombreCategoria);
-}
+	}
+	
+	//Busca productos por nombre del producto
+	@Override
+    public List<Producto> findByNombre(String nombreProducto) {
+        if (nombreProducto == null || nombreProducto.trim().isEmpty()) {
+            return List.of();
+        }
+        return productoRepository.findByNombreProductoContainingIgnoreCase(nombreProducto.trim());
+    }
+
 
 }

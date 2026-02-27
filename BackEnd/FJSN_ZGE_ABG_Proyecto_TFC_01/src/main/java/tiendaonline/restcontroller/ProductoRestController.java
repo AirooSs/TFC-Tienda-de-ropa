@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tiendaonline.entities.Producto;
 import tiendaonline.service.ProductoService;
@@ -53,5 +54,14 @@ public class ProductoRestController {
 	public List<Producto> productosPorCategoria(@PathVariable String nombreCategoria) {
     	return productoService.findByCategoriaNombre(nombreCategoria);
 }
+	//Metodo propio
+	@GetMapping("/buscar")
+    public ResponseEntity<List<Producto>> buscar(
+            @RequestParam("nombre") String nombre) {
+
+        return ResponseEntity.ok(
+                productoService.findByNombre(nombre)
+        );
+    }
 
 }

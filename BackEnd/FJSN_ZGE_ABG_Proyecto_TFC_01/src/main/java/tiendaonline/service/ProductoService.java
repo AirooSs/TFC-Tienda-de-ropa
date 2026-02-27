@@ -19,4 +19,8 @@ public interface ProductoService {
 
 	//Filtro productos por nombre de categoria
 	List<Producto> findByCategoriaNombre(String nombreCategoria);
+
+	//Busco producto por su nombre
+
+	List<Producto> findByNombre(String nombreProducto);
 }

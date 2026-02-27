@@ -43,7 +43,7 @@ public class Producto implements Serializable {
 	private double precioProducto;
 
 	@Column(name = "stock_producto")
-	private int StockProducto;
+	private int stockProducto;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cat")
