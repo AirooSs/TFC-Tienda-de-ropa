@@ -17,19 +17,35 @@
     </div>
 
     <div class="nav-icons">
-      <app-search></app-search>
+      <div class="search-wrap">
+        <app-search></app-search>
+      </div>
 
-      <a routerLink="/favoritos" title="Favoritos" routerLinkActive="active">
+      <a routerLink="/favoritos" title="Favoritos" routerLinkActive="active" class="icon-link">
         <img src="/img/heart-solid-full.svg" alt="Favoritos" class="nav-icon">
       </a>
-      <a routerLink="/perfil" title="Perfil" routerLinkActive="active">
-        <img src="/img/user-solid-full.svg" alt="Perfil" class="nav-icon">
-      </a>
-      <a routerLink="/carrito" title="Carrito" routerLinkActive="active">
+
+      @if (!isLogged) {
+        <a routerLink="/login" title="Login" class="icon-link">
+          <img src="/img/user-solid-full.svg" alt="Login" class="nav-icon">
+        </a>
+      }
+
+      @if (isLogged) {
+        <a routerLink="/perfil" title="Perfil" routerLinkActive="active" class="icon-link">
+          <img src="/img/user-solid-full.svg" alt="Perfil" class="nav-icon">
+        </a>
+      }
+
+      <a routerLink="/carrito" title="Carrito" routerLinkActive="active" class="icon-link">
         <img src="/img/cart-shopping-solid-full.svg" alt="Carrito" class="nav-icon">
       </a>
+
+      @if (isLogged) {
+        <button type="button" class="logout-button" (click)="logout()">
+          Cerrar sesión
+        </button>
+      }
     </div>
-
-
   </nav>
 </header>
