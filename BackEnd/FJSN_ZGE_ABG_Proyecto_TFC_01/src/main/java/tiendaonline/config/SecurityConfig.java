@@ -31,6 +31,7 @@ public class SecurityConfig {
             .cors(cors -> {})
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+             
                 // Swagger - público
                 .requestMatchers(
                     "/v3/api-docs/**",
@@ -40,10 +41,14 @@ public class SecurityConfig {
                     "/webjars/**"
                 ).permitAll()
 
-                // Auth (login/register) - público
+
+                // Auth
                 .requestMatchers("/auth/**").permitAll()
 
-                // CORS preflight - público
+                // Registro público
+                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+
+                // CORS preflight
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 // **PRODUCTOS Y CATEGORÍAS - PÚBLICOS (solo GET)**
