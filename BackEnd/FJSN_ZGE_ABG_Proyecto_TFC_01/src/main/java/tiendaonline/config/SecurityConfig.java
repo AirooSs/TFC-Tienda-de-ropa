@@ -31,7 +31,7 @@ public class SecurityConfig {
             .cors(cors -> {})
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                //  Swagger
+                // Swagger
                 .requestMatchers(
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
@@ -40,15 +40,18 @@ public class SecurityConfig {
                     "/webjars/**"
                 ).permitAll()
 
-                //  Auth
+                // Auth
                 .requestMatchers("/auth/**").permitAll()
 
-                //  CORS preflight
+                // Registro público
+                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+
+                // CORS preflight
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 .requestMatchers("/error").permitAll()
 
-                //  resto protegido
+                // resto protegido
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

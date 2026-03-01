@@ -78,3 +78,22 @@
   margin-bottom: 15px;
   text-align: center;
 }
+.register-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.btn-register {
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+.btn-register:hover {
+  text-decoration: underline;
+}
