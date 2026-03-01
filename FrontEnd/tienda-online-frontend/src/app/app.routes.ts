@@ -17,5 +17,6 @@ export const routes: Routes = [
   { path: 'categoria/:tipo', loadComponent: () => import('./components/category/category').then(m => m.CategoryComponent) },
   { path: 'producto/:id', loadComponent: () => import('./components/product-detail/product-detail').then(m => m.ProductDetailComponent) },
   { path: 'categoria/:tipo/:subcategoria', loadComponent: () => import('./components/products/products').then(m => m.ProductsComponent) },
+  { path: 'registro', loadComponent: () => import('./components/registro/registro').then(m => m.RegistroComponent) },
   { path: '**', redirectTo: '/inicio' }
 ];
