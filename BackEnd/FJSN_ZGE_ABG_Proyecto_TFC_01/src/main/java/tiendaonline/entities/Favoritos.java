@@ -3,8 +3,7 @@ package tiendaonline.entities;
 import java.io.Serializable;
 
 import jakarta.persistence.Id;
-
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +30,8 @@ public class Favoritos implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_favorito;
+    @Column(name = "id_favorito")
+	private Integer idFavorito;
 	
 	@JoinColumn(name = "id_producto")
 	@ManyToOne

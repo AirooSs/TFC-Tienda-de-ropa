@@ -12,7 +12,7 @@ export interface Product {
   idProducto: number;
   nombreProducto: string;
   precioProducto: number;
-  StockProducto: number;
+  stockProducto: number;
   categoria?: Category;
   imagenUrl?: string;   //ponemos imagen opcional, para que una ausencia no rompa la app
 }

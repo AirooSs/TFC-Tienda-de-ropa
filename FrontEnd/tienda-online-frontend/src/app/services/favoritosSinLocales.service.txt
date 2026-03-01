@@ -1,0 +1,56 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+
+export interface Favorito {
+  idFavorito?: number;
+  producto: {
+    idProducto: number;
+    nombreProducto: string;
+    precioProducto: number;
+    stockProducto: number;        
+    imagenUrl: string;
+    categoria?: {                
+      idCategoria: number;
+      nombreCategoria: string;
+    };
+    publico?: {                   
+      idPublico: number;
+      nombrePublico: string;
+    };
+  };
+  usuario?: {
+    idUsuario: number;
+  };
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FavoritosService {
+  private apiUrl = `${environment.apiUrl}/favoritos`;
+
+  constructor(private http: HttpClient) { }
+
+  // Obtener favoritos de un usuario
+  getFavoritosByUsuario(usuarioId: number): Observable<Favorito[]> {
+    return this.http.get<Favorito[]>(`${this.apiUrl}/usuario/${usuarioId}`);
+  }
+
+  // Añadir producto al componente favoritos.html ¿¿??
+  addFavorito(productoId: number, usuarioId: number): Observable<Favorito> {
+    const favorito = {
+      producto: { idProducto: productoId },
+      usuario: { idUsuario: usuarioId }
+    };
+    console.log('Enviando favorito:', favorito);
+    return this.http.post<Favorito>(`${this.apiUrl}/`, favorito);
+  }
+
+  // Eliminar de favoritos
+  removeFavorito(favoritoId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${favoritoId}`);
+  }
+}

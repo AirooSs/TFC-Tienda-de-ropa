@@ -1,11 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';  // AÑADIDO: of
+import { map, switchMap, tap } from 'rxjs/operators';
+import { FavoritosService } from './favoritos.service';
+import { EstadoService } from './estado.service';
 
+// EXPORTAMOS las interfaces
 export interface LoginRequest {
-  // Te dejo ambos formatos para que no te dé 400
   emailUsuario?: string;
   passwordUsuario?: string;
   email?: string;
@@ -13,14 +15,11 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-  // Formato “entidad” (como tu backend)
   nombreUsuario: string;
   emailUsuario: string;
   passwordUsuario: string;
   direccionUsuario?: string | null;
   role?: 'CLIENTE' | 'ADMIN';
-
-  // (por si tu front lo llama con nombres cortos)
   nombre?: string;
   email?: string;
   password?: string;
@@ -35,17 +34,28 @@ export interface AuthResponse {
   idUsuario: number;
 }
 
+export interface CurrentUser {  // EXPORTADA
+  idUsuario: number;
+  nombreUsuario: string;
+  emailUsuario: string;
+  role: 'CLIENTE' | 'ADMIN';
+  token?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private http = inject(HttpClient);
   private readonly API = environment.apiUrl;
-
   private readonly TOKEN_KEY = 'auth_token';
   private readonly ROLE_KEY = 'auth_role';
   private readonly NAME_KEY = 'auth_name';
   private readonly EMAIL_KEY = 'auth_email';
   private readonly ID_KEY = 'auth_idUsuario';
 
+  constructor(
+    private http: HttpClient,
+    private favoritosService: FavoritosService,
+    private estadoService: EstadoService
+  ) { }
 
   login(body: LoginRequest): Observable<AuthResponse> {
     const payload = {
@@ -60,6 +70,27 @@ export class AuthService {
         localStorage.setItem(this.NAME_KEY, res.nombre);
         localStorage.setItem(this.EMAIL_KEY, res.email);
         localStorage.setItem(this.ID_KEY, String(res.idUsuario));
+      }),
+      switchMap((res) => {
+        const usuario = this.getCurrentUser();
+        if (usuario) {
+          // Primero obtenemos los favoritos locales
+          const favoritosLocales = localStorage.getItem('favoritos_temp');
+          console.log('Favoritos locales antes de login:', favoritosLocales);
+
+          // Sincronizamos con el backend
+          return this.favoritosService.sincronizarFavoritosAlLogin(usuario).pipe(
+            map(() => {
+              // Después de sincronizar, recargamos la página o emitimos evento
+              console.log('Favoritos sincronizados correctamente');
+
+              this.estadoService.notificarLogin(); //notificamos a los comp que sucede el Login
+              return res;
+            })
+          );
+        }
+        this.estadoService.notificarLogin();
+        return of(res);
       })
     );
   }
@@ -111,5 +142,25 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.getRole() === 'ADMIN';
+  }
+
+  getCurrentUser(): CurrentUser | null {
+    const token = this.getToken();
+    const idUsuario = this.getIdUsuario();
+    const nombreUsuario = this.getName();
+    const emailUsuario = this.getEmail();
+    const role = this.getRole();
+
+    if (!token || !idUsuario || !nombreUsuario || !emailUsuario || !role) {
+      return null;
+    }
+
+    return {
+      idUsuario,
+      nombreUsuario,
+      emailUsuario,
+      role,
+      token
+    };
   }
 }

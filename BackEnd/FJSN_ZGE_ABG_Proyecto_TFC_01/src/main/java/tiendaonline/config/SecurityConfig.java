@@ -31,7 +31,7 @@ public class SecurityConfig {
             .cors(cors -> {})
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                //  Swagger
+                // Swagger - público
                 .requestMatchers(
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
@@ -40,15 +40,25 @@ public class SecurityConfig {
                     "/webjars/**"
                 ).permitAll()
 
-                //  Auth
+                // Auth (login/register) - público
                 .requestMatchers("/auth/**").permitAll()
 
-                //  CORS preflight
+                // CORS preflight - público
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                // **PRODUCTOS Y CATEGORÍAS - PÚBLICOS (solo GET)**
+                .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categoria/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/productos/categoria/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/productos/buscar/**").permitAll()
+                
+                // Imágenes estáticas - públicas
+                .requestMatchers("/static/**", "/img/**", "/images/**").permitAll()
+
+                //Error - público
                 .requestMatchers("/error").permitAll()
 
-                //  resto protegido
+                // **El resto (POST, PUT, DELETE) requieren autenticación**
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

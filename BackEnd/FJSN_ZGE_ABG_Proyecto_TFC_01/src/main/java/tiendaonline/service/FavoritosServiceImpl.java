@@ -3,8 +3,10 @@ package tiendaonline.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.ConstraintViolationException;
 import tiendaonline.entities.Favoritos;
 import tiendaonline.repository.FavoritosRepository;
 
@@ -26,15 +28,25 @@ public class FavoritosServiceImpl implements FavoritosService {
 		return favoritosRepository.findById(id).orElse(null);
 	}
 
+	
+	//Para controlar los duplicados, modificamos el método de la sigiente manera:
 	@Override
-	public Favoritos insertOne(Favoritos favoritos) {
-
-		return favoritosRepository.save(favoritos);
+	public Favoritos insertOne(Favoritos favorito) {
+	    try {
+	        return favoritosRepository.save(favorito);
+	    } catch (DataIntegrityViolationException e) {
+	        // Si es por duplicado (unique constraint), lanzamos una excepcion evidentísima! 
+	        if (e.getCause() instanceof ConstraintViolationException) {
+	            throw new RuntimeException("El producto ya está en favoritos");
+	        }
+	        throw e;
+	    }
 	}
-
+	
+	
 	@Override
 	public Favoritos updateOne(Favoritos favoritos) {
-		if (favoritosRepository.existsById(favoritos.getId_favorito()))
+		if (favoritosRepository.existsById(favoritos.getIdFavorito()))
 			return favoritosRepository.save(favoritos);
 		else
 			return null;
@@ -49,4 +61,22 @@ public class FavoritosServiceImpl implements FavoritosService {
 		return 0;
 	}
 
+	
+	
+	//Para la  búsqueda de favoritos por ususario
+	
+	@Override
+	public List<Favoritos> findByUsuarioId(Integer idUsuario) {
+		return favoritosRepository.findByUsuarioIdUsuario(idUsuario);
+	}
+
+	
+	
+	
+	@Override
+	public Favoritos findByUsuarioAndProducto(Integer idUsuario, Integer idProducto) {
+	    return favoritosRepository.findByUsuarioAndProducto(idUsuario, idProducto);
+	}
+	
+	
 }

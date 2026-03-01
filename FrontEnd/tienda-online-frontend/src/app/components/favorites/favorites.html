@@ -1,3 +1,75 @@
-<h1>¡Favoritos!</h1>
-<p>Esta es la página de favoritos</p>
-<a routerLink="/inicio">Volver al inicio</a>
+<div class="favoritos-container">
+  <h1 class="favoritos-titulo">Mis Favoritos</h1>
+  
+  <!-- Mensaje de carga -->
+  @if (loading) {
+    <div class="mensaje-container">
+      <p class="mensaje">Cargando tus favoritos...</p>
+    </div>
+  }
+
+  <!-- Mensaje de error -->
+  @if (error && !loading) {
+    <div class="mensaje-container">
+      <p class="mensaje error">{{ error }}</p>
+      <a routerLink="/inicio" class="btn-volver">Volver al inicio</a>
+    </div>
+  }
+
+  <!-- No hay favoritos -->
+  @if (!loading && !error && favoritos.length === 0) {
+    <div class="mensaje-container">
+      <p class="mensaje">No tienes productos favoritos aún.</p>
+      <a routerLink="/inicio" class="btn-explorar">Explorar productos</a>
+    </div>
+  }
+
+  <!-- Grid de favoritos (usando el mismo diseño que products.html) -->
+  @if (!loading && !error && favoritos.length > 0) {
+    <div class="grid-favoritos">
+      @for (f of favoritos; track f.idFavorito) {
+        <article class="producto-card">
+          <div class="producto-img">
+            <div class="imagen-contenedor">
+              <img 
+                [src]="f.producto.imagenUrl || '/img/placeholder.png'"
+                [alt]="f.producto.nombreProducto"
+                class="producto-imagen"
+              >
+              <!-- Botón para quitar de favoritos -->
+              <button class="btn-favorito active" 
+                      (click)="quitarFavorito(f, $event)"
+                      title="Quitar de favoritos">
+                <img src="/img/favred.svg" alt="Quitar de favoritos" class="corazon-icono">
+              </button>
+            </div>
+            
+            <span class="producto-badge">
+              {{ f.producto.categoria?.nombreCategoria ?? 'Producto' }}
+            </span>
+          </div>
+
+          <div class="producto-info">
+            <h3 class="producto-nombre">{{ f.producto.nombreProducto }}</h3>
+
+            <div class="producto-meta">
+              <span class="producto-precio">{{ f.producto.precioProducto }} €</span>
+              <span class="producto-stock" [class.sin-stock]="f.producto.stockProducto === 0">
+                @if (f.producto.stockProducto === 0) { Sin stock } @else { Stock: {{ f.producto.stockProducto }} }
+              </span>
+            </div>
+
+            <a class="producto-btn" [routerLink]="['/producto', f.producto.idProducto]">
+              Ver detalle
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  <!-- Enlace para volver (siempre visible) -->
+  <div class="volver-container">
+    <a routerLink="/inicio" class="volver-link">← Volver al inicio</a>
+  </div>
+</div>

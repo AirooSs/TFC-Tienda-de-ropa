@@ -16,4 +16,18 @@ public interface FavoritosService {
 	Favoritos updateOne(Favoritos favoritos);
 
 	int deleteOne(Integer id);
+	
+	//Método para la busqueda por usuario
+	List<Favoritos> findByUsuarioId(Integer idUsuario);
+	
+	
+	Favoritos findByUsuarioAndProducto(
+			Integer idUsuario, 
+			Integer idProducto
+			);
+	
+	
+	
+	
+	
 }

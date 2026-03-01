@@ -1,0 +1,87 @@
+@import '../products/products.css';
+
+.favoritos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 20px;
+}
+
+.favoritos-titulo {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #343a40;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Solo los estilos específicos de favoritos que no están en products.css */
+.mensaje-container {
+  text-align: center;
+  padding: 3rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.mensaje {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.mensaje.error {
+  color: #dc3545;
+}
+
+.btn-explorar, .btn-volver {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.btn-explorar:hover, .btn-volver:hover {
+  background: #0056b3;
+}
+
+.grid-favoritos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+  .grid-favoritos { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-favoritos { grid-template-columns: repeat(2, 1fr); }
+  .favoritos-titulo { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .grid-favoritos { grid-template-columns: 1fr; }
+}
+
+.volver-container {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.volver-link {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.volver-link:hover {
+  color: #007bff;
+}
