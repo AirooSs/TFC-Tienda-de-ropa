@@ -19,6 +19,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     		String nombrePublico
     		);
     
+    //Filtro necesario por tipo de público
+    List<Producto> findByPublico_NombrePublicoIgnoreCase(String nombrePublico);
      
     
 }
