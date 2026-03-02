@@ -1,15 +1,46 @@
 <div class="pagina-categoria">
-  <!-- barra del menú subcategoría -->
-  <app-subcategories [categoria]="categoria"></app-subcategories>
-  
-  <!-- título de categoira -->
-  <h1 class="titulo-categoria">{{ categoria | titlecase }}</h1>
-  
-  <!-- CONTENIDOS ESPECÍFICOS DE CATEGORÍAAS -->
+  <app-subcategories [categoria]="tipo"></app-subcategories>
+
+  <h1 class="titulo-categoria">{{ tipo | titlecase }}</h1>
+
   <div class="seccion-contenido">
-    <p style="text-align: center; color: #6c757d;">
-      Contenido específico para {{ categoria }}.
-      <br>Aquí irán productos destacados, novedades, etc.
-    </p>
+    @if (loading()) {
+      <div class="grid-random">
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+        <div class="card-random skeleton"></div>
+      </div>
+    } @else {
+      @if (randomProductos().length === 0) {
+        <p class="estado-vacio">No hay productos en esta categoría.</p>
+      } @else {
+        <div class="grid-random">
+          @for (p of randomProductos(); track p.idProducto) {
+            <a class="card-random" [routerLink]="['/producto', p.idProducto]">
+              <div class="img-wrap">
+                <img
+                  class="img"
+                  [class.img-fade]="isFading()"
+                  [src]="getImagen(p)"
+                  [alt]="p.nombreProducto"
+                  loading="lazy"
+                  (error)="onImgError($event)"
+                />
+              </div>
+
+              <div class="info">
+                <h3 class="nombre">{{ p.nombreProducto }}</h3>
+                <p class="precio">{{ p.precioProducto | currency:'EUR':'symbol':'1.2-2' }}</p>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    }
   </div>
 </div>

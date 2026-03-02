@@ -1,47 +1,60 @@
 <div class="contenedor-home">
+
   <!-- Sección principal -->
   <section class="seccion-principal">
     <h1 class="titulo-principal">Colecciones</h1>
-    <p class="subtitulo-principal">
-      ¡Vlaad atemporal!
-    </p>
-    
+    <p class="subtitulo-principal">¡Vlaad atemporal!</p>
+
     <div class="navegacion-categorias">
-      <a routerLink="/categoria/hombre" class="enlace-categoria">
-        Hombre
-      </a>
-      <a routerLink="/categoria/mujer" class="enlace-categoria">
-        Mujer
-      </a>
-      <a routerLink="/categoria/niño" class="enlace-categoria">
-        Niño
-      </a>
+      <a routerLink="/categoria/hombre" class="enlace-categoria">Hombre</a>
+      <a routerLink="/categoria/mujer" class="enlace-categoria">Mujer</a>
+      <a routerLink="/categoria/niño" class="enlace-categoria">Niño</a>
     </div>
   </section>
-  
-  <hr class="separador">
-  
-  <!-- Sección de colecciones -->
+
+  <hr class="separador" />
+
+
   <section class="seccion-colecciones">
     <h2 class="titulo-colecciones">VLAAD esential</h2>
     <p class="texto-colecciones">¡Nuestras coleccioes están esperándote!</p>
-    
-    <!-- 4 rectángulos -->
+
+
     <div class="cuadricula-rectangulos">
+      @if (loading()) {
+      <div class="cuadricula-rectangulos" [class.fade]="isFading()"></div>
+      <div class="rectangulo skeleton"></div>
+      <div class="rectangulo skeleton"></div>
+      <div class="rectangulo skeleton"></div>
+      <div class="rectangulo skeleton"></div>
+      } @else {
+      @if (randomProductos().length === 0) {
       <div class="rectangulo"></div>
       <div class="rectangulo"></div>
       <div class="rectangulo"></div>
       <div class="rectangulo"></div>
+      } @else {
+      @for (p of randomProductos(); track p.idProducto) {
+      <a class="rectangulo rect-producto" [routerLink]="['/producto', p.idProducto]">
+        <img class="rect-img" [class.img-fade]="isFading()" [src]="getImagen(p)" [alt]="p.nombreProducto" loading="lazy"
+          (error)="onImgError($event)" />
+
+        <div class="rect-overlay">
+          <span class="rect-nombre">{{ p.nombreProducto }}</span>
+          <span class="rect-precio">{{ p.precioProducto | currency:'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+      </a>
+      }
+      }
+      }
     </div>
   </section>
-  
-  <hr class="separador">
-  
+
+  <hr class="separador" />
+
   <!-- Sección información -->
   <section class="seccion-informacion">
     <h3 class="titulo-informacion">Envíos rápidos y seguros</h3>
-    <p class="texto-informacion">
-      Entrega en 24-48 horas en la península.
-    </p>
+    <p class="texto-informacion">Entrega en 24-48 horas en la península.</p>
   </section>
 </div>

@@ -76,6 +76,11 @@ public class ProductoRestController {
 				);
 	
 	}
+	//Metodo propio para la búsqueda por tipo de público
+	@GetMapping("/publico/{nombrePublico}")
+	public List<Producto> productosPorPublico(@PathVariable String nombrePublico) {
+    	return productoService.findByPublicoNombre(nombrePublico);
+}
 	
 
 }

@@ -29,5 +29,7 @@ public interface ProductoService {
 			String nombreCategoria,
 			String nombrePublico
 			);
+	//filtro por público
+	List<Producto> findByPublicoNombre(String nombrePublico);
 	
 }

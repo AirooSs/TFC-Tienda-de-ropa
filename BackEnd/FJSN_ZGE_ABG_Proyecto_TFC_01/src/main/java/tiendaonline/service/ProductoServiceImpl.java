@@ -85,6 +85,10 @@ public class ProductoServiceImpl implements ProductoService {
 				nombrePublico.trim()
 				);
 	}
+	//Filtro necesario por tipo de público
+	@Override
+	public List<Producto> findByPublicoNombre(String nombrePublico) {
+		return productoRepository.findByPublico_NombrePublicoIgnoreCase(nombrePublico);
 
-
+	}
 }

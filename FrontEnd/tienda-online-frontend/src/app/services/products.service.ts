@@ -8,13 +8,19 @@ export interface Category {
   nombreCategoria: string;
 }
 
+export interface Publico {
+  idPublico: number;
+  nombrePublico: string;
+}
+
 export interface Product {
   idProducto: number;
   nombreProducto: string;
   precioProducto: number;
   stockProducto: number;
   categoria?: Category;
-  imagenUrl?: string;   //ponemos imagen opcional, para que una ausencia no rompa la app
+  publico?: Publico;
+  imagenUrl?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,23 +37,26 @@ export class ProductsService {
     return this.http.get<Product>(`${this.baseUrl}${id}`);
   }
 
-  listByCategoria(nombreCategoria: string) {
+  listByCategoria(nombreCategoria: string): Observable<Product[]> {
     return this.http.get<Product[]>(
       `${environment.apiUrl}/productos/categoria/${encodeURIComponent(nombreCategoria)}`
     );
   }
+
   searchByNombre(nombre: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}buscar`, {
       params: { nombre }
     });
   }
 
-  //El método clave: Categoria + publico
-  listByCategoriaYPublico(categoria: string, publico: string) {
-  return this.http.get<Product[]>(
-    `${environment.apiUrl}/productos/categoria/${encodeURIComponent(categoria)}/publico/${encodeURIComponent(publico)}`
-  );
-}
-
-
+  listByCategoriaYPublico(categoria: string, publico: string): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${environment.apiUrl}/productos/categoria/${encodeURIComponent(categoria)}/publico/${encodeURIComponent(publico)}`
+    );
+  }
+  listByPublico(nombrePublico: string): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${environment.apiUrl}/productos/publico/${encodeURIComponent(nombrePublico)}`
+    );
+  }
 }
