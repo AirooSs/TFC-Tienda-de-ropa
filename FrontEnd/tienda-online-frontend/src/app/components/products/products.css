@@ -72,7 +72,6 @@
 }
 
 
-/* Badge de categoría */
 .producto-badge {
   position: absolute;
   bottom: 12px;
@@ -109,3 +108,139 @@
   }
 }
 
+/* Botón de agregar al carrito */
+.btn-carrito-estilo {
+  left: 10px;    
+  right: auto;   
+  color: #c4c4c4; 
+}
+
+.btn-carrito-estilo i {
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.btn-carrito-estilo:hover {
+  transform: scale(1.1);
+  color: #000000; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+.fila-botones-superiores {
+  position: absolute;
+  top: 15px; 
+  left: 15px;
+  right: 15px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-start; 
+  z-index: 20;
+}
+
+
+.btn-circular-vlaad, .btn-favorito-circular {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.selector-vlaad-activo {
+  height: 40px;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 8px;
+}
+
+.corazon-icono {
+  width: 22px;
+  height: auto;
+}
+
+.btn-qty {
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.cantidad-numero {
+  font-weight: bold;
+  font-size: 0.95rem;
+  min-width: 15px;
+  text-align: center;
+}
+
+/**/
+
+.contenedor-cart-vlaad {
+  position: absolute;
+  bottom: 12px; 
+  right: 12px;  
+  z-index: 10;
+}
+
+.btn-circular-vlaad, .selector-vlaad-activo {
+  width: 44px;  
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+}
+
+.btn-circular-vlaad { width: 40px; color: #666; cursor: pointer; }
+
+.selector-vlaad-activo {
+  height: 44px;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+  min-width: 90px;
+}
+.btn-favorito:hover, .btn-circular-vlaad:hover, .selector-vlaad-activo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.btn-qty {
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.cantidad-numero {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+
+.producto-info .selector-vlaad-activo, 
+.producto-info .selector-cantidad {
+  display: none !important;
+}

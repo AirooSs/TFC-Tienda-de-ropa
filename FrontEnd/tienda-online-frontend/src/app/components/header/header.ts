@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { SearchComponent } from '../search/search';
 import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -27,4 +28,13 @@ export class HeaderComponent {
     this.auth.logout();
     this.router.navigateByUrl('/login');
   }
+  numItems = 0;
+
+constructor(private cartService: CartService) {}
+
+ngOnInit() {
+  this.cartService.cart$.subscribe(productos => {
+    this.numItems = productos.length;
+  });
+}
 }

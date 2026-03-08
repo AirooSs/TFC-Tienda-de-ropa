@@ -18,11 +18,18 @@ export class FavoritesComponent implements OnInit {
   error: string | null = null;
 
   constructor(
-    public favoritosService: FavoritosService,  // Cambiado a public
-    public authService: AuthService              // Cambiado a public
+    public favoritosService: FavoritosService, 
+    public authService: AuthService              
   ) {}
 
   ngOnInit() {
+    this.favoritosService.favoritos$.subscribe({
+      next: (data: Favorito[]) => {
+        this.favoritos = data;
+        this.loading = false;
+        console.log('Lista de favoritos actualizada en tiempo real:', this.favoritos);
+      }
+    });
     this.cargarFavoritos();
   }
 

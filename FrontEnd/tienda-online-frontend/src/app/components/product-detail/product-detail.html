@@ -1,3 +1,54 @@
-<h1>Detalle de productos</h1>
-<p>Esta es la página de detalle de productos</p>
-<a routerLink="/inicio">Volver al inicio</a>
+<nav class="vlaad-breadcrumb-nav">
+  <a routerLink="/inicio" class="vlaad-back-link">
+    <i class="bi bi-arrow-left"></i> Volver al inicio
+  </a>
+</nav>
+
+@if (producto) {
+  <div class="vlaad-detail-wrapper">
+    <div class="grid-detalle">
+      
+      <div class="seccion-imagen">
+        <img [src]="producto.imagenUrl || '/img/placeholder.png'" 
+             [alt]="producto.nombreProducto" 
+             class="img-full">
+      </div>
+
+      <div class="seccion-info">
+        <span class="categoria-label">{{ producto.categoria?.nombreCategoria }}</span>
+        <h1 class="titulo-producto">{{ producto.nombreProducto }}</h1>
+        <p class="ref-p">REF: #{{ producto.idProducto }}</p>
+        
+        <div class="precio-big">{{ producto.precioProducto }} €</div>
+
+        <div class="caja-descripcion">
+          <h3>Detalles de la Prenda</h3>
+          <p>{{ producto.descripcion || 'Esta es una prenda exclusiva de la colección VlaadESP. Diseñada para ofrecer comodidad y estilo sin comprometer la calidad. Perfecta para cualquier ocasión, desde un look casual hasta un evento más formal.' }}</p>
+        </div>
+
+        <div class="metadata">
+          <p><strong>Stock disponible:</strong> {{ producto.stockProducto }} uds.</p>
+        </div>
+
+        <div class="botones-accion">
+  <button class="btn-vlaad-primary" (click)="agregarAlCarrito()">
+    AÑADIR A LA CESTA
+  </button>
+  
+  <button class="btn-vlaad-fav" 
+        [class.activo]="esFavoritoActivo" 
+        (click)="toggleFavorito()">
+  <i class="bi" 
+     [class.bi-heart-fill]="esFavoritoActivo" 
+     [class.bi-heart]="!esFavoritoActivo"></i>
+</button>
+</div>
+      </div>
+
+    </div>
+  </div>
+} @else {
+  <div class="cargando">
+    <p>Cargando detalles del producto...</p>
+  </div>
+}

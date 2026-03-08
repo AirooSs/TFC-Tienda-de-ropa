@@ -1,3 +1,37 @@
-<h1>Cesta de compra</h1>
-<p>Esta es la página de la cesta de compra</p>
-<a routerLink="/inicio">Volver al inicio</a>
+<div class="carrito-container">
+  <h1>Tu Carrito de Compra</h1>
+
+  @if (itemsCarrito.length > 0) {
+    <div class="lista-productos">
+      @for (item of itemsCarrito; track $index) {
+        <div class="item-carrito">
+          <img [src]="item.imagenUrl" [alt]="item.nombreProducto" class="img-mini">
+          
+          <div class="info-item">
+            <p class="nombre">{{ item.nombreProducto }}</p>
+            <p class="referencia">Referencia: #{{ item.idProducto }}</p>
+            <p class="precio">{{ item.precioProducto }} €</p>
+          </div>
+
+          <button class="btn-eliminar" (click)="$event.stopPropagation(); eliminarDelCarrito(item)">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="carrito-resumen">
+      <div class="fila-total">
+        <span>Total a pagar:</span>
+        <span class="total-monto">{{ obtenerTotal() }} €</span>
+      </div>
+      <button class="btn-pagar">Finalizar Compra</button>
+    </div>
+
+  } @else {
+    <div class="carrito-vacio">
+      <p>Tu cesta está vacía.</p>
+      <a routerLink="/productos">Ir a la tienda</a>
+    </div>
+  }
+</div>
