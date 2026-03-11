@@ -7,6 +7,7 @@ import { FavoritosService, Favorito } from '../../services/favoritos.service';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { EstadoService } from '../../services/estado.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -27,7 +28,8 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
     public favoritosService: FavoritosService,
     public authService: AuthService,
-    private estadoService: EstadoService
+    private estadoService: EstadoService,
+    private cartService: CartService
   ) {
     this.estadoService.login$.subscribe(() => {
       console.log('Login detectado, recargando favoritos...');
@@ -138,4 +140,29 @@ export class ProductsComponent implements OnInit {
       });
     }
   }
+  // Metodo agregar al carrito
+  agregarAlCarrito(producto: any) {
+    this.cartService.addToCart(producto);
+    alert(`${producto.nombreProducto} añadido al carrito`);
+  }
+incrementarCantidad(producto: any) {
+  this.cartService.addToCart(producto); 
+}
+
+decrementarCantidad(producto: any) {
+  this.cartService.removeFromCart(producto); 
+}
+
+obtenerCantidad(productoId: number): number {
+  return this.cartService.getCartItems().filter(item => item.idProducto === productoId).length;
+}
+
+quitarUno(producto: any) {
+  this.cartService.removeFromCart(producto);
+}
+
+masUno(producto: any) {
+  this.cartService.addToCart(producto);
+}
+
 }

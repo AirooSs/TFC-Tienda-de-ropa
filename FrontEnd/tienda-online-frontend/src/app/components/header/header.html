@@ -37,9 +37,13 @@
         </a>
       }
 
-      <a routerLink="/carrito" title="Carrito" routerLinkActive="active" class="icon-link">
-        <img src="/img/cart-shopping-solid-full.svg" alt="Carrito" class="nav-icon">
-      </a>
+      <a routerLink="/carrito" class="icon-link position-relative">
+  <img src="/img/cart-shopping-solid-full.svg" alt="Carrito" class="nav-icon">
+  
+  @if (numItems > 0) {
+    <span class="vlaad-badge">{{ numItems }}</span>
+  }
+</a>
 
       @if (isLogged) {
         <button type="button" class="logout-button" (click)="logout()">

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CurrentUser } from './auth.service'; // Importamos la interfaz
 
@@ -39,6 +39,15 @@ export class FavoritosService {
   private readonly LOCAL_STORAGE_KEY = 'favoritos_temp';
 
   constructor(private http: HttpClient) { }
+
+  private favoritosSubject = new BehaviorSubject<Favorito[]>([]);
+  favoritos$ = this.favoritosSubject.asObservable();
+
+  refreshFavoritos(usuario: CurrentUser | null) {
+    this.getFavoritos(usuario).subscribe(favs => {
+      this.favoritosSubject.next(favs);
+    });
+  }
 
   getFavoritos(usuario: CurrentUser | null): Observable<Favorito[]> {
     if (usuario) {
@@ -135,6 +144,17 @@ export class FavoritosService {
     });
   }
 
+  toggleFavorito(producto: any, usuario: CurrentUser | null, favoritoId?: number): Observable<any> {
+    const yaEsFavorito = usuario 
+      ? favoritoId !== undefined 
+      : this.esFavoritoLocal(producto.idProducto);
+
+    if (yaEsFavorito) {
+      return this.removeFavorito(producto.idProducto, usuario, favoritoId);
+    } else {
+      return this.addFavorito(producto, usuario);
+    }
+  }
 
   private getFavoritosLocales(): FavoritoLocal[] {
     const stored = localStorage.getItem(this.LOCAL_STORAGE_KEY);

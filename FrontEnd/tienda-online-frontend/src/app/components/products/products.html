@@ -18,15 +18,27 @@
 
         <!-- Contenedor para imagen y boton de favs -->
         <div class="imagen-contenedor">
-          <img [src]="p.imagenUrl || '/img/placeholder.png'" [alt]="p.nombreProducto" class="producto-imagen">
+  <img [src]="p.imagenUrl || '/img/placeholder.png'" [alt]="p.nombreProducto" class="producto-imagen">
 
-          <!-- Botones de los favs -->
-          <button class="btn-favorito" (click)="toggleFavorito(p, $event)"
-            [class.favorito-activo]="esFavorito(p.idProducto)">
-            <img [src]="esFavorito(p.idProducto) ? '/img/favred.svg' : '/img/favgrey.svg'" alt="Favorito"
-              class="corazon-icono">
-          </button>
-        </div>
+  <button class="btn-favorito" (click)="toggleFavorito(p, $event)">
+    <img [src]="esFavorito(p.idProducto) ? '/img/favred.svg' : '/img/favgrey.svg'" class="corazon-icono">
+  </button>
+
+  <div class="contenedor-cart-vlaad">
+    @if (obtenerCantidad(p.idProducto) === 0) {
+      <button class="btn-circular-vlaad" (click)="incrementarCantidad(p)">
+        <i class="bi bi-cart-plus-fill"></i> 
+      </button>
+    } @else {
+      <div class="selector-vlaad-activo">
+        <button (click)="decrementarCantidad(p)" class="btn-qty">-</button>
+        <span class="cantidad-numero">{{ obtenerCantidad(p.idProducto) }}</span>
+        <button (click)="incrementarCantidad(p)" class="btn-qty">+</button>
+      </div>
+    }
+  </div>
+</div>
+        
 
         <span class="producto-badge">
           {{ p.categoria?.nombreCategoria ?? 'Producto' }}
