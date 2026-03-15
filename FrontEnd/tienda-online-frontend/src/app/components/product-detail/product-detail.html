@@ -21,9 +21,16 @@
         
         <div class="precio-big">{{ producto.precioProducto }} €</div>
 
+        <!--Aquí mostramos la descripción para cada producto. 
+        Si no se encunetra, mostramos el mensaje de que estamos trabajando en ello...-->
+
         <div class="caja-descripcion">
           <h3>Detalles de la Prenda</h3>
-          <p>{{ producto.descripcion || 'Esta es una prenda exclusiva de la colección VlaadESP. Diseñada para ofrecer comodidad y estilo sin comprometer la calidad. Perfecta para cualquier ocasión, desde un look casual hasta un evento más formal.' }}</p>
+          @if (producto.descripcionProducto && producto.descripcionProducto.trim() !== '') {
+            <p>{{ producto.descripcionProducto }}</p>
+          } @else {
+            <p>Estamos trabajando en la descripción de este producto. Pronto tendremos más detalles disponibles.</p>
+          }
         </div>
 
         <div class="metadata">
@@ -31,18 +38,18 @@
         </div>
 
         <div class="botones-accion">
-  <button class="btn-vlaad-primary" (click)="agregarAlCarrito()">
-    AÑADIR A LA CESTA
-  </button>
-  
-  <button class="btn-vlaad-fav" 
-        [class.activo]="esFavoritoActivo" 
-        (click)="toggleFavorito()">
-  <i class="bi" 
-     [class.bi-heart-fill]="esFavoritoActivo" 
-     [class.bi-heart]="!esFavoritoActivo"></i>
-</button>
-</div>
+          <button class="btn-vlaad-primary" (click)="agregarAlCarrito()">
+            AÑADIR A LA CESTA
+          </button>
+          
+          <button class="btn-vlaad-fav" 
+                [class.activo]="esFavoritoActivo" 
+                (click)="toggleFavorito()">
+            <i class="bi" 
+               [class.bi-heart-fill]="esFavoritoActivo" 
+               [class.bi-heart]="!esFavoritoActivo"></i>
+          </button>
+        </div>
       </div>
 
     </div>

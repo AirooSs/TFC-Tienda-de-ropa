@@ -55,5 +55,8 @@ public class Producto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_publico", nullable = false)
 	private Publico publico;
+	
+	@Column(name = "descripcion_producto", columnDefinition = "TEXT")
+	private String descripcionProducto;
 
 }
