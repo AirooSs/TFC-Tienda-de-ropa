@@ -31,7 +31,7 @@ public class SecurityConfig {
             .cors(cors -> {})
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-             
+
                 // Swagger - público
                 .requestMatchers(
                     "/v3/api-docs/**",
@@ -40,7 +40,6 @@ public class SecurityConfig {
                     "/swagger-resources/**",
                     "/webjars/**"
                 ).permitAll()
-
 
                 // Auth
                 .requestMatchers("/auth/**").permitAll()
@@ -51,19 +50,28 @@ public class SecurityConfig {
                 // CORS preflight
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // **PRODUCTOS Y CATEGORÍAS - PÚBLICOS (solo GET)**
+                // PRODUCTOS Y CATEGORÍAS - públicos (GET)
                 .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/categoria/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/productos/categoria/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/productos/buscar/**").permitAll()
-                
+
+
+                // Solo ADMIN puede modificar productos
+                .requestMatchers(HttpMethod.POST, "/productos/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/productos/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMIN")
+
+                // Ejemplo: pedidos → usuario autenticado
+                .requestMatchers("/pedidos/**").hasAnyRole("USER", "ADMIN")
+
                 // Imágenes estáticas - públicas
                 .requestMatchers("/static/**", "/img/**", "/images/**").permitAll()
 
-                //Error - público
+                // Error - público
                 .requestMatchers("/error").permitAll()
 
-                // **El resto (POST, PUT, DELETE) requieren autenticación**
+                // Todo lo demás requiere autenticación
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
