@@ -1,6 +1,13 @@
 <div class="favoritos-container">
   <h1 class="favoritos-titulo">Mis Favoritos</h1>
   
+  <!-- Mensaje informativo para usuarios anónimos -->
+  @if (!authService.isLogged() && !loading && !error && favoritos.length > 0) {
+    <div class="info-anonimo">
+      ¡Estos son tus favoritos, <strong>inicia sesión</strong> para guardarlos en tu cuenta y no perderlos!
+    </div>
+  }
+  
   <!-- Mensaje de carga -->
   @if (loading) {
     <div class="mensaje-container">
@@ -24,10 +31,10 @@
     </div>
   }
 
-  <!-- Grid de favoritos (usando el mismo diseño que products.html) -->
+  <!-- Grid de favoritos - usando track con ID único -->
   @if (!loading && !error && favoritos.length > 0) {
     <div class="grid-favoritos">
-      @for (f of favoritos; track f.idFavorito) {
+      @for (f of favoritos; track getTrackId(f)) {
         <article class="producto-card">
           <div class="producto-img">
             <div class="imagen-contenedor">
@@ -68,7 +75,7 @@
     </div>
   }
 
-  <!-- Enlace para volver (siempre visible) -->
+  <!-- Enlace para volver -->
   <div class="volver-container">
     <a routerLink="/inicio" class="volver-link">← Volver al inicio</a>
   </div>

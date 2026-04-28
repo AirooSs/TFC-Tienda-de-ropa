@@ -12,39 +12,8 @@
   text-align: center;
 }
 
-/* SECCIONES DE CONTENIDO */
 .seccion-contenido {
   margin: 3rem 0;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .pagina-categoria {
-    padding: 0 15px 2rem;
-  }
-
-  .titulo-categoria {
-    font-size: 1.8rem;
-    margin: 1.5rem 0 1rem;
-  }
-}
-
-.pagina-categoria {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem 3rem;
-}
-
-.titulo-categoria {
-  text-align: center;
-  font-size: 2.2rem;
-  font-weight: 300;
-  color: #343a40;
-  margin: 2rem 0 1.5rem;
-}
-
-.seccion-contenido {
-  margin-top: 1rem;
 }
 
 .estado-vacio {
@@ -81,6 +50,11 @@
   overflow: hidden;
 }
 
+/* Estilo específico para Junior - desplaza la imagen hacia abajo */
+.img-wrap-junior .img {
+  object-position: center top;
+}
+
 .img {
   width: 100%;
   height: 100%;
@@ -90,6 +64,7 @@
   opacity: 1;
   transform: scale(1);
   will-change: opacity, transform;
+  object-position: center center;
 }
 
 .img.img-fade {
@@ -160,5 +135,14 @@
 
   .img-wrap {
     height: 250px;
+  }
+  
+  .titulo-categoria {
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  .pagina-categoria {
+    padding: 0 15px 2rem;
   }
 }

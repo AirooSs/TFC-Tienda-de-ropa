@@ -22,7 +22,7 @@
         <div class="grid-random">
           @for (p of randomProductos(); track p.idProducto) {
             <a class="card-random" [routerLink]="['/producto', p.idProducto]">
-              <div class="img-wrap">
+              <div class="img-wrap" [class.img-wrap-junior]="esJunior()">
                 <img
                   class="img"
                   [class.img-fade]="isFading()"

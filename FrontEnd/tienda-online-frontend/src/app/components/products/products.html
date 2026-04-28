@@ -12,60 +12,61 @@
 
     @if (products$ | async; as products) {
 
-    @for (p of products; track p.idProducto) {
-    <article class="producto-card">
-      <div class="producto-img">
+      @for (p of products; track p.idProducto) {
+        <article class="producto-card">
+          <div class="producto-img">
+            <div class="imagen-contenedor">
+              <img [src]="p.imagenUrl || '/img/placeholder.png'" [alt]="p.nombreProducto" class="producto-imagen">
 
-        <!-- Contenedor para imagen y boton de favs -->
-        <div class="imagen-contenedor">
-  <img [src]="p.imagenUrl || '/img/placeholder.png'" [alt]="p.nombreProducto" class="producto-imagen">
+              <button class="btn-favorito" (click)="toggleFavorito(p, $event)">
+                <img [src]="esFavorito(p.idProducto) ? '/img/favred.svg' : '/img/favgrey.svg'" class="corazon-icono">
+              </button>
 
-  <button class="btn-favorito" (click)="toggleFavorito(p, $event)">
-    <img [src]="esFavorito(p.idProducto) ? '/img/favred.svg' : '/img/favgrey.svg'" class="corazon-icono">
-  </button>
+              <div class="contenedor-cart-vlaad">
+                @if (obtenerCantidad(p.idProducto) === 0) {
+                  <button class="btn-circular-vlaad" (click)="incrementarCantidad(p)">
+                    <i class="bi bi-cart-plus-fill"></i> 
+                  </button>
+                } @else {
+                  <div class="selector-vlaad-activo">
+                    <button (click)="decrementarCantidad(p)" class="btn-qty">-</button>
+                    <span class="cantidad-numero">{{ obtenerCantidad(p.idProducto) }}</span>
+                    <button (click)="incrementarCantidad(p)" class="btn-qty">+</button>
+                  </div>
+                }
+              </div>
+            </div>
 
-  <div class="contenedor-cart-vlaad">
-    @if (obtenerCantidad(p.idProducto) === 0) {
-      <button class="btn-circular-vlaad" (click)="incrementarCantidad(p)">
-        <i class="bi bi-cart-plus-fill"></i> 
-      </button>
+            <span class="producto-badge">
+              {{ p.categoria?.nombreCategoria ?? 'Producto' }}
+            </span>
+          </div>
+
+          <div class="producto-info">
+            <h3 class="producto-nombre">{{ p.nombreProducto }}</h3>
+
+            <div class="producto-meta">
+              <span class="producto-precio">{{ p.precioProducto }} €</span>
+              <span class="producto-stock" [class.sin-stock]="p.stockProducto === 0">
+                @if (p.stockProducto === 0) { 
+                  Sin stock 
+                } @else { 
+                  Stock: {{ p.stockProducto }} 
+                }
+              </span>
+            </div>
+
+            <a class="producto-btn" [routerLink]="['/producto', p.idProducto]">
+              Ver detalle
+            </a>
+          </div>
+        </article>
+      }
+
     } @else {
-      <div class="selector-vlaad-activo">
-        <button (click)="decrementarCantidad(p)" class="btn-qty">-</button>
-        <span class="cantidad-numero">{{ obtenerCantidad(p.idProducto) }}</span>
-        <button (click)="incrementarCantidad(p)" class="btn-qty">+</button>
-      </div>
-    }
-  </div>
-</div>
-        
-
-        <span class="producto-badge">
-          {{ p.categoria?.nombreCategoria ?? 'Producto' }}
-        </span>
-      </div>
-
-      <div class="producto-info">
-        <h3 class="producto-nombre">{{ p.nombreProducto }}</h3>
-
-        <div class="producto-meta">
-          <span class="producto-precio">{{ p.precioProducto }} €</span>
-          <span class="producto-stock" [class.sin-stock]="p.stockProducto === 0">
-            @if (p.stockProducto === 0) { Sin stock } @else { Stock: {{ p.stockProducto }} }
-          </span>
-        </div>
-
-        <a class="producto-btn" [routerLink]="['/producto', p.idProducto]">
-          Ver detalle
-        </a>
-      </div>
-    </article>
-    }
-
-    } @else {
-    <p style="text-align: center; color: #6c757d; padding: 3rem;">
-      Cargando productos...
-    </p>
+      <p style="text-align: center; color: #6c757d; padding: 3rem;">
+        Cargando productos...
+      </p>
     }
 
   </div>

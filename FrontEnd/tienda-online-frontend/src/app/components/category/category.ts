@@ -18,10 +18,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
   private productsService = inject(ProductsService);
 
   tipo = '';
+  private todosLosProductos: Product[] = [];
 
   loading = signal(true);
   private productos = signal<Product[]>([]);
   randomProductos = signal<Product[]>([]);
+  esJunior = signal(false);
 
   isFading = signal(false);
   private animando = false;
@@ -30,52 +32,54 @@ export class CategoryComponent implements OnInit, OnDestroy {
   private routeSub?: Subscription;
 
   private readonly NUM_A_MOSTRAR = 8;
-  private readonly ROTACION_MS = 5000; // 5 segundos
+  private readonly ROTACION_MS = 5000;
   private readonly FADE_MS = 650;
 
   ngOnInit(): void {
-    const t0 = (this.route.snapshot.paramMap.get('tipo') || '').toLowerCase();
-    this.tipo = t0;
-    this.cargarPorPublico();
+    this.productsService.list().subscribe({
+      next: (data) => {
+        this.todosLosProductos = Array.isArray(data) ? data : [];
+        console.log('Productos cargados:', this.todosLosProductos.length);
+        
+        const t0 = (this.route.snapshot.paramMap.get('tipo') || '').toLowerCase();
+        this.tipo = t0;
+        this.filtrarYMostrar();
+        
+        this.loading.set(false);
+      },
+      error: () => {
+        this.todosLosProductos = [];
+        this.loading.set(false);
+      }
+    });
 
     this.routeSub = this.route.paramMap.subscribe((params) => {
       const t = (params.get('tipo') || '').toLowerCase();
       if (t && t !== this.tipo) {
         this.tipo = t;
-        this.cargarPorPublico();
+        this.filtrarYMostrar();
       }
     });
   }
 
-  ngOnDestroy(): void {
+  private filtrarYMostrar(): void {
     this.rotacionSub?.unsubscribe();
-    this.routeSub?.unsubscribe();
-  }
+    
+    const publicoBuscado = this.mapPublicoParaBackend(this.tipo);
+    this.esJunior.set(publicoBuscado === 'Junior');
+    
+    const filtrados = this.todosLosProductos.filter(p => 
+      p.publico && p.publico.nombrePublico === publicoBuscado
+    );
+    
+    this.productos.set(filtrados);
+    this.refreshRandom();
 
-  private cargarPorPublico(): void {
-    this.loading.set(true);
-    this.rotacionSub?.unsubscribe();
-
-    const publicoBackend = this.mapPublicoParaBackend(this.tipo);
-
-    // Requiere que añadas listByPublico() en ProductsService
-    this.productsService.listByPublico(publicoBackend).subscribe({
-      next: (data) => {
-        this.productos.set(Array.isArray(data) ? data : []);
+    if (filtrados.length > 0) {
+      this.rotacionSub = interval(this.ROTACION_MS).subscribe(() => {
         this.refreshRandom();
-
-        this.rotacionSub = interval(this.ROTACION_MS).subscribe(() => {
-          this.refreshRandom();
-        });
-
-        this.loading.set(false);
-      },
-      error: () => {
-        this.productos.set([]);
-        this.randomProductos.set([]);
-        this.loading.set(false);
-      },
-    });
+      });
+    }
   }
 
   private mapPublicoParaBackend(tipo: string): string {
@@ -118,6 +122,11 @@ export class CategoryComponent implements OnInit, OnDestroy {
         }, this.FADE_MS);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.rotacionSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   getImagen(p: Product): string {
