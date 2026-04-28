@@ -16,7 +16,12 @@
         <article class="producto-card">
           <div class="producto-img">
             <div class="imagen-contenedor">
-              <img [src]="p.imagenUrl || '/img/placeholder.png'" [alt]="p.nombreProducto" class="producto-imagen">
+              <img 
+                [src]="p.imagenUrl || '/img/placeholder.png'" 
+                [alt]="p.nombreProducto" 
+                class="producto-imagen"
+                [class.img-junior]="esJunior()"
+              >
 
               <button class="btn-favorito" (click)="toggleFavorito(p, $event)">
                 <img [src]="esFavorito(p.idProducto) ? '/img/favred.svg' : '/img/favgrey.svg'" class="corazon-icono">

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SubcategoriesComponent } from '../subcategories/subcategories';
@@ -22,6 +22,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subcategoria: string = '';
   products$!: Observable<Product[]>;
   favoritosMap: Map<number, number> = new Map();
+  esJunior = signal(false);
   
   private loginSubscription!: Subscription;
   private routeSubscription!: Subscription;
@@ -44,6 +45,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.routeSubscription = this.route.params.subscribe(params => {
       this.categoria = params['tipo'];
       this.subcategoria = params['subcategoria'];
+      this.esJunior.set(this.categoria?.toLowerCase() === 'junior');
       this.products$ = this.productsService.listByCategoriaYPublico(this.subcategoria, this.categoria);
       this.cargarFavoritos();
     });
