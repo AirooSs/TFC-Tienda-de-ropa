@@ -33,13 +33,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   private readonly NUM_A_MOSTRAR = 8;
   private readonly ROTACION_MS = 5000;
-  private readonly FADE_MS = 650;
+  private readonly FADE_MS = 300;
 
   ngOnInit(): void {
     this.productsService.list().subscribe({
       next: (data) => {
         this.todosLosProductos = Array.isArray(data) ? data : [];
-        console.log('Productos cargados:', this.todosLosProductos.length);
         
         const t0 = (this.route.snapshot.paramMap.get('tipo') || '').toLowerCase();
         this.tipo = t0;
@@ -63,23 +62,39 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   private filtrarYMostrar(): void {
-    this.rotacionSub?.unsubscribe();
+    if (this.animando) return;
     
-    const publicoBuscado = this.mapPublicoParaBackend(this.tipo);
-    this.esJunior.set(publicoBuscado === 'Junior');
+    this.animando = true;
+    this.isFading.set(true);
     
-    const filtrados = this.todosLosProductos.filter(p => 
-      p.publico && p.publico.nombrePublico === publicoBuscado
-    );
-    
-    this.productos.set(filtrados);
-    this.refreshRandom();
+    // Esperar a que termine el fade out
+    setTimeout(() => {
+      this.rotacionSub?.unsubscribe();
+      
+      const publicoBuscado = this.mapPublicoParaBackend(this.tipo);
+      this.esJunior.set(publicoBuscado === 'Junior');
+      
+      const filtrados = this.todosLosProductos.filter(p => 
+        p.publico && p.publico.nombrePublico === publicoBuscado
+      );
+      
+      this.productos.set(filtrados);
+      this.refreshRandom();
 
-    if (filtrados.length > 0) {
-      this.rotacionSub = interval(this.ROTACION_MS).subscribe(() => {
-        this.refreshRandom();
-      });
-    }
+      if (filtrados.length > 0) {
+        this.rotacionSub = interval(this.ROTACION_MS).subscribe(() => {
+          this.refreshRandom();
+        });
+      }
+      
+      // Hacer fade in
+      setTimeout(() => {
+        this.isFading.set(false);
+        setTimeout(() => {
+          this.animando = false;
+        }, this.FADE_MS);
+      }, 50);
+    }, this.FADE_MS);
   }
 
   private mapPublicoParaBackend(tipo: string): string {
@@ -94,34 +109,16 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   private refreshRandom(): void {
-    if (this.animando) return;
-
     const lista = this.productos();
     if (!lista || lista.length === 0) {
       this.randomProductos.set([]);
       return;
     }
 
-    this.animando = true;
-    this.isFading.set(true);
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          const mezclada = [...lista].sort(() => Math.random() - 0.5);
-          this.randomProductos.set(
-            mezclada.slice(0, Math.min(this.NUM_A_MOSTRAR, mezclada.length))
-          );
-
-          requestAnimationFrame(() => {
-            this.isFading.set(false);
-            setTimeout(() => {
-              this.animando = false;
-            }, this.FADE_MS);
-          });
-        }, this.FADE_MS);
-      });
-    });
+    const mezclada = [...lista].sort(() => Math.random() - 0.5);
+    this.randomProductos.set(
+      mezclada.slice(0, Math.min(this.NUM_A_MOSTRAR, mezclada.length))
+    );
   }
 
   ngOnDestroy(): void {

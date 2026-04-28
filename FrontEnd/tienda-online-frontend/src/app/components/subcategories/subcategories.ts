@@ -1,5 +1,4 @@
-// subcategories.ts
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -10,17 +9,28 @@ import { RouterModule } from '@angular/router';
   templateUrl: './subcategories.html',
   styleUrl: './subcategories.css'
 })
-export class SubcategoriesComponent {
+export class SubcategoriesComponent implements OnInit {
   @Input() categoria: string = '';
   
-  // cargamos algunas subcategorias
   subcategoriasData: any = {
     'hombre': ['Camisetas', 'Pantalones', 'Sudaderas', 'Camisas'],
     'mujer': ['Vestidos', 'Suéter', 'Faldas', 'Camisas', 'Pantalones'],
     'junior': ['Chándal', 'Sudaderas']
   };
   
-  get subcategorias(): string[] {
-    return this.subcategoriasData[this.categoria] || [];
+  subcategorias: string[] = [];
+  
+  ngOnInit() {
+    this.actualizarSubcategorias();
+  }
+  
+  ngOnChanges() {
+    this.actualizarSubcategorias();
+  }
+  
+  actualizarSubcategorias() {
+    const key = this.categoria?.toLowerCase() || '';
+    this.subcategorias = this.subcategoriasData[key] || [];
+    console.log('Categoría recibida:', this.categoria, 'Subcategorías:', this.subcategorias);
   }
 }

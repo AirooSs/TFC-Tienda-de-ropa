@@ -19,13 +19,13 @@
       @if (randomProductos().length === 0) {
         <p class="estado-vacio">No hay productos en esta categoría.</p>
       } @else {
-        <div class="grid-random">
+        <div class="grid-random" [class.fade-out]="isFading()">
           @for (p of randomProductos(); track p.idProducto) {
             <a class="card-random" [routerLink]="['/producto', p.idProducto]">
-              <div class="img-wrap" [class.img-wrap-junior]="esJunior()">
+              <div class="img-wrap">
                 <img
                   class="img"
-                  [class.img-fade]="isFading()"
+                  [class.img-junior]="esJunior()"
                   [src]="getImagen(p)"
                   [alt]="p.nombreProducto"
                   loading="lazy"

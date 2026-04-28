@@ -1,11 +1,12 @@
 <nav class="barra-subcategorias">
   <div class="contenedor-subcategorias">
-    <a 
-      *ngFor="let subcat of subcategorias"
-      [routerLink]="['/categoria', categoria, subcat.toLowerCase()]"
-      routerLinkActive="activa"
-      class="enlace-subcategoria">
-      {{ subcat }}
-    </a>
+    @for (subcat of subcategorias; track subcat) {
+      <a 
+        [routerLink]="['/categoria', categoria, subcat.toLowerCase()]"
+        routerLinkActive="activa"
+        class="enlace-subcategoria">
+        {{ subcat }}
+      </a>
+    }
   </div>
 </nav>
